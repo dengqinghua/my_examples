@@ -25,7 +25,7 @@
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
-    <!-- assert_that -->
+    <!-- assertThat -->
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>
@@ -50,7 +50,6 @@
       </plugin>
 
       <plugin>
-        <!-- 官方推荐的 run test 的插件 -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire.plugin.version}</version>

@@ -1,11 +1,6 @@
 package com.dengqinghua.example;
 
-/**
- * Hello world!
- *
- */
-public class App
-{
+public class App {
     public static void main( String[] args ) {
         System.out.println("dsg" + System.getProperty("dsg"));
         System.out.println("I am a server running FOREVER");
