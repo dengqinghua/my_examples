@@ -1,7 +1,7 @@
 My Java Examples
 ===============
 
-该Git包含了我的[技术博客](http://blog.dengqinghua.net)所有Java相关的示例代码
+该Git包含了我的[技术博客](http://blog.dengqinghua.net)所有相关的示例代码
 
 包括下面这些示例
 
