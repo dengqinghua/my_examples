@@ -1,5 +1,5 @@
-My Java Examples
-===============
+My Examples
+===========
 
 该Git包含了我的[技术博客](http://blog.dengqinghua.net)所有相关的示例代码
 
