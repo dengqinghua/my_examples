@@ -16,7 +16,7 @@ public class BinarySearch {
      * </pre>
      *
      * @param datas 数组对象, 要求已经是有序的
-     * @return 返回查找到的结果, 或者为null
+     * @return true OR false
      */
     public static boolean find(int[] datas, int dataToFind) {
         int leftIndex = 0, rightIndex = datas.length - 1,
