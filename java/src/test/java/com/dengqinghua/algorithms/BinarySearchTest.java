@@ -22,6 +22,7 @@ public class BinarySearchTest {
         int[] datas = { 1, 3, 5, 8, 9, 10 };
 
         assertTrue(BinarySearch.find(datas, 5));
+        assertFalse(BinarySearch.find(datas, 7));
         assertFalse(BinarySearch.find(datas, 90));
     }
 }
