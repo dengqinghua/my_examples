@@ -7,7 +7,6 @@ public class SalaryTest {
     @Test public void calculateYearSalary() {
         Salary salary = new Salary(10_000, 20_000);
         assertEquals(salary.calculateYearSalary(), 140_000);
-        System.out.println(System.getProperty("hosts"));
     }
 
     @Test public void calculateYearSalary2() {
