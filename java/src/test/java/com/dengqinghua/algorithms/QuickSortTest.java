@@ -71,13 +71,13 @@ public class QuickSortTest {
     // TODO: 需要看下int的二进制表示方式
     @Test public void testSpecialSymbols() throws Exception {
         int i = 8;
-        assertThat(Integer.toBinaryString(i),          is("1000"));
+        assertThat(Integer.toBinaryString(i), is("1000"));
         assertThat(Integer.toBinaryString(i << 1),  is("10000"));
         assertThat(Integer.toBinaryString(i >> 1),  is("100"));
         assertThat(Integer.toBinaryString(i >>> 1), is("100"));
 
         i = -8;
-        assertThat(Integer.toBinaryString(i),          is("11111111111111111111111111111000"));
+        assertThat(Integer.toBinaryString(i), is("11111111111111111111111111111000"));
         assertThat(Integer.toBinaryString(i << 1),  is("11111111111111111111111111110000"));
         assertThat(Integer.toBinaryString(i >> 1),  is("11111111111111111111111111111100"));
         assertThat(Integer.toBinaryString(i >>> 1), is("1111111111111111111111111111100"));

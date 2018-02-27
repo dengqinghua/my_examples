@@ -99,6 +99,7 @@ public class QuickSort {
      * @param to          待排序的结束位置
      */
     public static void sort(int[] sourceDatas, int from, int to) {
+        // Base Case to == from
         if (to > from) {
             int pivot = from; // 取第一个元素的位置为 pivot
 
@@ -112,7 +113,7 @@ public class QuickSort {
                         switchPosition(sourceDatas, pivot, i);
                         pivot = i;
                     }
-                    // 大于 sourceDatas[pivot] 元素 放在 pivot 坐标的右边
+                // 大于等于 sourceDatas[pivot] 元素 放在 pivot 坐标的右边
                 } else {
                     // 7 6 4   6为pivot对应的元素, 7 和 6 比较, 发现 7大于6, 而且 7 的 index 比 6 小
                     // 要将元素 7, 6 的位置互换
