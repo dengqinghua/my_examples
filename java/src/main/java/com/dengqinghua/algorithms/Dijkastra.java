@@ -60,6 +60,8 @@ public class Dijkastra {
      * 注意: edge中的 weight 属性需要 >= 0
      *
      * @param graph 初始化好的一张图
+     * @param nodeCostMap 起点到每个node的总路劲, 用 Map 表示
+     * @param parentNodeMap 最短路劲时, 每个node对应的上一个node, 用 Map 表示
      */
     public static void run(Graph graph,
                            Map<Node, Integer> nodeCostMap,
@@ -101,6 +103,7 @@ class Graph {
 
 class Node {
     String name;
+
     public Node(String name) {
         this.name = name;
     }

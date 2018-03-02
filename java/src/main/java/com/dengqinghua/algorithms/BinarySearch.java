@@ -77,20 +77,4 @@ public class BinarySearch {
 
         return false;
     }
-
-    // /**
-    //  * 二分查找法(递归) 时间复杂度: <b>O(logn)</b>
-    //  *
-    //  * <pre>
-    //  *     Base Case: data == dataToFind
-    //  *     Reduce Case: 折半
-    //  *     Condition: leftIndex == rightIndex
-    //  * </pre>
-    //  *
-    //  * @param dataToFind 待查找的数组
-    //  * @param datas 数组对象, 要求已经是有序的
-    //  * @return true OR false
-    //  */
-    // public static boolean findUseRecrusion(int[] datas, int dataToFind) {
-    // }
 }
