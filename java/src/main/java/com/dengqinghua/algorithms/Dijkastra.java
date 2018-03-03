@@ -1,8 +1,7 @@
 package com.dengqinghua.algorithms;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Dijkastra {
     /**
@@ -87,6 +86,19 @@ public class Dijkastra {
             graph.start = edge.to;
             run(graph, nodeCostMap, parentNodeMap);
         });
+    }
+
+    private static String printShortestRoute(Node end, Map<Node, Node> parentNodeMap) {
+        List<Node> nodes = new LinkedList<>();
+        Node node = end;
+
+        while (Objects.nonNull(node)) {
+            nodes.add(node);
+            node = parentNodeMap.get(node);
+        }
+
+        Collections.reverse(nodes);
+        return nodes.stream().map(Node::getName).collect(Collectors.joining("->"));
     }
 }
 

@@ -3,8 +3,8 @@ package com.dengqinghua.algorithms;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -38,6 +38,13 @@ public class DijkastraTest {
         nodeMap.put(end, new ArrayList<>());
     }
 
+    static Method methodPrintShortestRoute;
+    @BeforeClass static public void setMethodVisible() throws Exception {
+        methodPrintShortestRoute = Dijkastra.class.
+                getDeclaredMethod("printShortestRoute", Node.class, Map.class);
+        methodPrintShortestRoute.setAccessible(true);
+    }
+
     @Test public void run_When_Graph_Only_Has_One_Node() throws Exception {
         graph = new Graph(nodeMap, end, end);
         Dijkastra.run(graph, nodeCostMap, parentNodeMap);
@@ -66,7 +73,8 @@ public class DijkastraTest {
         Dijkastra.run(graph, nodeCostMap, parentNodeMap);
 
         assertThat(nodeCostMap.get(end), is(10));
-        assertThat(combileShortestRoute(end, parentNodeMap), is("node1->end"));
+        assertThat(methodPrintShortestRoute.invoke(Dijkastra.class, end, parentNodeMap),
+                is("node1->end"));
     }
 
     //  start  __₂₀ node2
@@ -78,19 +86,7 @@ public class DijkastraTest {
         Dijkastra.run(graph, nodeCostMap, parentNodeMap);
         assertThat(nodeCostMap.get(end), is(20));
 
-        assertThat(combileShortestRoute(end, parentNodeMap), is("start->node1->end"));
-    }
-
-    private String combileShortestRoute(Node end, Map<Node, Node> parentNodeMap) {
-        List<Node> nodes = new LinkedList<>();
-        Node node = end;
-
-        while (Objects.nonNull(node)) {
-            nodes.add(node);
-            node = parentNodeMap.get(node);
-        }
-
-        Collections.reverse(nodes);
-        return nodes.stream().map(Node::getName).collect(Collectors.joining("->"));
+        assertThat(methodPrintShortestRoute.invoke(Dijkastra.class, end, parentNodeMap).toString(),
+                is("start->node1->end"));
     }
 }
