@@ -87,7 +87,6 @@ public class DynamicProgrammingTest {
         assertThat(grid, arrayWithSize(2));
         assertThat(grid[0], arrayWithSize(4));
         assertThat(grid[1][3].gain, is(40));
-        System.out.println(grid[1][3].items);
     }
 
     @Test public void run_When_Multi_Line() throws Exception {
@@ -133,7 +132,6 @@ public class DynamicProgrammingTest {
         limit = 7;
         grid = DynamicProgramming.run(limit, unit, sourceGains, sourceCosts);
         assertThat(grid[2][6].gain, is(82));
-        System.out.println(grid[2][6].items);
         assertThat(grid[2][6].items, contains("做家政", "送快递", "送快递"));
     }
 
