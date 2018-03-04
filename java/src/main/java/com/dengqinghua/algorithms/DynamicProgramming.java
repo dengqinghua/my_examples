@@ -113,7 +113,10 @@ public class DynamicProgramming {
      * @return 返回整个 动态规划 的 cell的二维数组,
      *      其中最后一个 cell 为最优解, 可以通过 cell.gain 和 cell.items 得到 收益 和 详情
      */
-    public static Cell[][] run(int limit, int unit, Map<String, Integer> sourceGains, Map<String, Integer> sourceCosts) {
+    public static Cell[][] run(int limit,
+                               int unit,
+                               Map<String, Integer> sourceGains,
+                               Map<String, Integer> sourceCosts) {
         Cell[][] grid = initGrid(sourceGains, limit, unit);
 
         // 初始化第一行的值
