@@ -6,7 +6,7 @@ addr   = Socket.pack_sockaddr_in(4481, '0.0.0.0')
 server.bind(addr)
 # 5 代表可以容忍的最大pending数量, 如果多于5个, 则服务则会说无法连接
 # Mac中最大值: Socket::SOMAXCONN 128
-server.listen(6)
+server.listen(5)
 
 #   - socket
 #   - create
