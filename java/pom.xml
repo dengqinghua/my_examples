@@ -14,6 +14,8 @@
         <compiler.plugin.version>3.5.1</compiler.plugin.version>
         <hamcrest.version>1.3</hamcrest.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <calcite.version>1.15.0</calcite.version>
+        <jooq.version>3.10.0</jooq.version>
     </properties>
 
     <dependencies>
@@ -32,6 +34,19 @@
             <artifactId>hamcrest-all</artifactId>
             <version>${hamcrest.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.calcite/calcite-core -->
+        <dependency>
+            <groupId>org.apache.calcite</groupId>
+            <artifactId>calcite-core</artifactId>
+            <version>${calcite.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>${jooq.version}</version>
         </dependency>
     </dependencies>
 
