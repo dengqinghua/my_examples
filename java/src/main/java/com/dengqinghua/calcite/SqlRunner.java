@@ -12,15 +12,15 @@ import java.sql.*;
 import java.util.Properties;
 
 /**
- * 使用 calcite 将数组变成一个数据库, 并执行SQL. 请查看测试用例
+ * 使用  <a href="https://calcite.apache.org/docs/index.html">calcite</a> 将数组变成一个数据库, 并执行SQL. 请查看测试用例
  */
 public class SqlRunner {
     private CalciteConnection connection;
 
     public SqlRunner(String databaseName, Object sourceData) {
         this.connection = initConnection();
-        SchemaPlus databaseInstance = fetchDatabaseInstance();
-        databaseInstance.add(databaseName, new ReflectiveSchema(sourceData));
+        SchemaPlus databaseContainer = fetchDatabaseContainer();
+        databaseContainer.add(databaseName, new ReflectiveSchema(sourceData));
     }
 
     public Result<Record> run(String sql) {
@@ -43,7 +43,7 @@ public class SqlRunner {
         }
     }
 
-    private SchemaPlus fetchDatabaseInstance() {
+    private SchemaPlus fetchDatabaseContainer() {
         return connection.getRootSchema();
     }
 }
