@@ -4,6 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -72,14 +73,29 @@ public class QuickSortTest {
     @Test public void testSpecialSymbols() throws Exception {
         int i = 8;
         assertThat(Integer.toBinaryString(i), is("1000"));
+        assertThat(i << 1, is(16));
         assertThat(Integer.toBinaryString(i << 1),  is("10000"));
+        assertThat(i >> 1, is(4));
         assertThat(Integer.toBinaryString(i >> 1),  is("100"));
+        assertThat(i >>> 1, is(4));
+        assertThat(Integer.toBinaryString(i >>> 1), is("100"));
+
+        i = 9;
+        assertThat(Integer.toBinaryString(i), is("1001"));
+        assertThat(i << 1, is(18));
+        assertThat(Integer.toBinaryString(i << 1),  is("10010"));
+        assertThat(i >> 1, is(4));
+        assertThat(Integer.toBinaryString(i >> 1),  is("100"));
+        assertThat(i >>> 1, is(4));
         assertThat(Integer.toBinaryString(i >>> 1), is("100"));
 
         i = -8;
         assertThat(Integer.toBinaryString(i), is("11111111111111111111111111111000"));
+        assertThat(i << 1, is(-16));
         assertThat(Integer.toBinaryString(i << 1),  is("11111111111111111111111111110000"));
+        assertThat(i >> 1, is(-4));
         assertThat(Integer.toBinaryString(i >> 1),  is("11111111111111111111111111111100"));
+        assertThat(i >>> 1, is(2147483644));
         assertThat(Integer.toBinaryString(i >>> 1), is("1111111111111111111111111111100"));
 
         i = 1;
