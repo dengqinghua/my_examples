@@ -10,7 +10,7 @@ public class App {
     private static void runForever() {
         while (true) {
             try {
-                Thread.sleep(10000000);
+                Thread.sleep(1000);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
