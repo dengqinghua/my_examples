@@ -184,7 +184,7 @@ public class BinarySearchTreeTest {
     }
 
     /**
-     * 删除 7
+     * 删除 7, 7 只有 左子树
      *
      *                       10                     10
      *                   7       30     ->      4      30
@@ -207,7 +207,7 @@ public class BinarySearchTreeTest {
     }
 
     /**
-     * 删除 7
+     * 删除 7, 7 只有 右子树
      *
      *                       10                     10
      *                   7       30     ->      8      30
@@ -230,7 +230,7 @@ public class BinarySearchTreeTest {
     }
 
     /**
-     * 删除 7
+     * 删除 7, 7 有 左右子树
      *
      *                           20                         20
      *                      7          40    ->       6          40
