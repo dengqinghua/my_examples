@@ -295,9 +295,11 @@ public class BinarySearchTree {
      *          4        9
      *        3  5     8   10
      *
-     *      则 返回值为 6 4 3 5 9 8 10
+     *      则 返回值为 3 4 5 6 8 9 10
      *
      *      迭代式地访问 left -> root -> right
+     *
+     *      NOTE: 中序遍历得到的值为按顺序由小到大排列的数组
      * </pre>
      *
      * <pre>
@@ -331,7 +333,7 @@ public class BinarySearchTree {
      *          4        9
      *        3  5     8   10
      *
-     *      则 返回值为 3 4 5 8 9 10 6
+     *      则 返回值为 3 5 4 8 10 9 6
      *
      *      迭代式地访问 left -> right -> root
      * </pre>
