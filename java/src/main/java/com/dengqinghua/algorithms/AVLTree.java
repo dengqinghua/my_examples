@@ -62,6 +62,47 @@ public class AVLTree {
     /**
      * AVL树的插入
      *
+     * <p>
+     *     先进行插入, 插入完之后进行 balance
+     * </p>
+     *
+     * @param data 插入的值
+     * @param node 返回插入后的root节点
+     * @param useBalance 是否采用平衡策略, 用于测试对比数据
+     */
+    public AVLNode insert(Integer data, AVLNode node, boolean useBalance) {
+        if (Objects.isNull(node)) {
+            return new AVLNode(data, null, null);
+        } else {
+            if (data > node.data) {
+                node.right = insert(data, node.right, useBalance);
+            } else {
+                node.left = insert(data, node.left, useBalance);
+            }
+
+            if (useBalance) {
+                node = balance(node);
+            }
+
+            setHeight(node);
+
+            return node;
+        }
+    }
+
+    private static int height(AVLNode node) {
+        if (node == null) {
+            return -1;
+        } else {
+            return Math.max(height(node.left), height(node.right)) + 1;
+        }
+    }
+
+    private final Integer ALLOW_IMBALANCE = 1;
+
+    /**
+     * 对当前的节点做平衡处理
+     *
      * <pre>
      *     一共有四种情况
      *     case 1. 左子树 的 左子树 插入 一个节点
@@ -105,39 +146,9 @@ public class AVLTree {
      *       分两步: 先按照case1旋转30, 再按照case2旋转20
      * </pre>
      *
-     * @param data 插入的值
-     * @param node 返回插入后的root节点
-     * @param useBalance 是否采用平衡策略, 用于测试对比数据
+     * @param node 输入的节点
+     * @return 输出的节点
      */
-    public AVLNode insert(Integer data, AVLNode node, boolean useBalance) {
-        if (Objects.isNull(node)) {
-            return new AVLNode(data, null, null);
-        } else {
-            if (data > node.data) {
-                node.right = insert(data, node.right, useBalance);
-            } else {
-                node.left = insert(data, node.left, useBalance);
-            }
-
-            if (useBalance) {
-                node = balance(node);
-            }
-
-            setHeight(node);
-            return node;
-        }
-    }
-
-    private static int height(AVLNode node) {
-        if (node == null) {
-            return -1;
-        } else {
-            return Math.max(height(node.left), height(node.right)) + 1;
-        }
-    }
-
-    private final Integer ALLOW_IMBALANCE = 1;
-
     public AVLNode balance(AVLNode node) {
         if (Math.abs(height(node.left) - height(node.right)) > ALLOW_IMBALANCE) {
             if (height(node.left) > height(node.right)) {
@@ -162,6 +173,11 @@ public class AVLTree {
         return node;
     }
 
+    /**
+     * 设置节点的高度
+     *
+     * @param node 传入的节点
+     */
     private void setHeight(AVLNode node) {
         node.height = Math.max(height(node.left), height(node.right)) + 1;
     }

@@ -143,7 +143,7 @@ public class BinarySearchTree {
     public boolean remove(Integer data) {
         isRemoved = true;
 
-        remove(data, root);
+        this.root = remove(data, root);
 
         return isRemoved;
     }
