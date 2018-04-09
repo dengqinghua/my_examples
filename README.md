@@ -12,7 +12,7 @@ Java
 ----
 请运行test
 
-```java
+```shell
 git clone https://github.com/dengqinghua/my_examples.git
 cd java
 mvn test
