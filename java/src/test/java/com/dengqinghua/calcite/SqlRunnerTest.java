@@ -66,6 +66,7 @@ public class SqlRunnerTest {
                 + "WHERE \"sellers\".\"name\" = 'dengqinghua'";
 
         Result<Record> result = sqlRunner.run(sql);
+
         assertThat(result.format(), is(
                 "+----+-----------+" + "\n" +
                 "|  id|name       |" + "\n" +
