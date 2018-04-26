@@ -29,7 +29,7 @@ public class JState {
         // 打印调试命令
         Util.printJcommands();
 
-        fillObject(100);
+        fillObject(10000);
     }
 
     /**
@@ -49,7 +49,7 @@ public class JState {
 
             System.out.println(String.format("生成第 %d 个对象, 内存为 %d kb", i + 1, 64 * (i + 1)));
 
-            Util.sleep();
+            Util.sleep(200);
         }
 
         // 在这里进行了gc, 不会使得 OLD Eden Space 依旧会存在, 因为 objectList 为被清除

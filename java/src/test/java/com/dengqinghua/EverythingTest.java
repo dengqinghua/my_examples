@@ -2,6 +2,9 @@ package com.dengqinghua;
 
 import org.junit.Test;
 
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
@@ -53,5 +56,54 @@ public class EverythingTest {
         assertThat(crc32Two.getValue(), is(1306201125L));
 
         assertThat(crc32One.getValue(), is(equalTo(crc32Two.getValue())));
+    }
+
+    @Test public void testBitOperation() {
+        int i = 3, j = 5;
+
+        assertThat(Integer.toBinaryString(i), is("11"));
+        assertThat(Integer.toBinaryString(j), is("101"));
+
+        assertThat(i | j, is(7));
+        assertThat(Integer.toBinaryString(i | j), is("111"));
+
+        assertThat(i & j, is(1));
+        assertThat(Integer.toBinaryString(i & j), is("1"));
+
+        // 这里是 HashMap 的 tableSizeFor 方法, 她接收一个 cap 参数,
+        // 输出一个大于等于cap 的 2的幂次方的最小数
+        int cap, n;
+        cap = 17;
+        n = cap - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+
+        assertThat(n + 1, is(32));
+
+        cap = 71;
+        n = cap - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+
+        Map<Integer, Integer> a = new HashMap<>();
+
+        assertThat(n + 1, is(128));
+
+        int h;
+        h = "ds".hashCode();
+
+        assertThat(h, is(3215));
+        assertThat(Integer.toBinaryString(h), is("110010001111"));
+        assertThat(Integer.toBinaryString(h >> 4), is("11001000"));
+
+        // ^ 为 位异或, 相同位的设置为0, 不同位设置为1
+        assertThat(Integer.toBinaryString(h ^ (h >>> 4)), is("110001000111"));
+        assertThat(Integer.toBinaryString(18), is(1));
     }
 }

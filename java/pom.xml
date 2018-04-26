@@ -16,6 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <calcite.version>1.15.0</calcite.version>
         <jooq.version>3.10.0</jooq.version>
+        <cglib.version>3.2.6</cglib.version>
     </properties>
 
     <dependencies>
@@ -47,6 +48,13 @@
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
             <version>${jooq.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>${cglib.version}</version>
         </dependency>
     </dependencies>
 

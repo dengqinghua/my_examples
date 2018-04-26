@@ -33,19 +33,14 @@ public class Util {
         }
     }
 
-    public static void sleep() {
-        try {
-            Thread.sleep(500);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     /**
      * 打印调试信息, 不用每次用 jps 去查进程id
      */
     public static void printJcommands() {
         System.out.println(String.format("jvisualvm --openpid %d ", Util.getPid()));
+        System.out.println(String.format("jstack %d ", Util.getPid()));
+        System.out.println(String.format("jinfo %d ", Util.getPid()));
+        System.out.println(String.format("jstat -gc %d ", Util.getPid()));
         System.out.println(String.format("jconsole -interval=1 %d ", Util.getPid()));
     }
 
