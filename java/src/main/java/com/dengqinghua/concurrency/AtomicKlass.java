@@ -3,6 +3,7 @@ package com.dengqinghua.concurrency;
 import com.dengqinghua.util.Util;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
 
 public class AtomicKlass {
     // volatile int i = 0;

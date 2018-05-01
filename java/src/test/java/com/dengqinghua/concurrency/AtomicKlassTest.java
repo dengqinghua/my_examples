@@ -1,5 +1,6 @@
 package com.dengqinghua.concurrency;
 
+import com.dengqinghua.util.Util;
 import org.junit.Test;
 
 import java.util.List;
@@ -62,6 +63,38 @@ public class AtomicKlassTest {
         assertThat(object.getI(), equalTo(1000));
     }
 
+    @Test public void testWait() throws Exception {
+        Thread thread = new Thread(() -> {
+            System.out.println("==== in wait thread ====");
+
+            synchronized (object) {
+                try {
+                    object.wait();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                System.out.println("===== I am notified ======");
+            }
+        });
+
+
+        Thread threadToNotify = new Thread(() -> {
+            System.out.println("==== in notify thread ====");
+
+            synchronized (object) {
+                System.out.println("I am began to notify");
+                object.notify();
+            }
+        });
+        // 注意, 这里有顺序问题, 如果 notify 先于 wait, 后续没有再 notify 了, 那么 wait 就一直在等待着了
+        thread.start();
+        threadToNotify.start();
+
+        thread.join();
+        threadToNotify.join();
+    }
+
     // 是线程安全的, 因为 incrJ 方法是 Atomic 的
     @Test public void testAtomicAddInMultiThread() {
         List<Thread> threads = IntStream.range(0, 1000).mapToObj(i -> {
@@ -81,5 +114,4 @@ public class AtomicKlassTest {
 
         assertThat(object.getJ(), equalTo(1000));
     }
-
 }
