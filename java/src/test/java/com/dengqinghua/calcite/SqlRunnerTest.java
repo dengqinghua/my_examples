@@ -5,6 +5,12 @@ import org.jooq.Result;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ForkJoinPool;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -50,10 +56,7 @@ public class SqlRunnerTest {
                 new Product(1026, 3),
         };
 
-        database = new Database();
-        database.products = products;
-        database.sellers  = sellers;
-
+        System.out.println(ForkJoinPool.getCommonPoolParallelism());
     }
 
     @Test public void run() throws Exception {

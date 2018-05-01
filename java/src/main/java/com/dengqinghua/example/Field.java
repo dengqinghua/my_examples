@@ -7,4 +7,8 @@ public class Field {
     static final int staticFinalVarWithInitValue = 4;
     public int instanceVarWithoutInitValue;
     static int staticVarWithoutInitValue;
+
+    public static void main(String[] args) {
+        int a = "D".hashCode();
+    }
 }
