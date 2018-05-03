@@ -22,6 +22,18 @@ public class AtomicKlass {
     }
 
     // 是线程安全的
+    public synchronized void incrISync() {
+        i++;
+    }
+
+    // 是线程安全的
+    public void incrISyncV2() {
+        synchronized (this) {
+            i++;
+        }
+    }
+
+    // 是线程安全的
     public void incrJ() {
         Util.sleep(1);
         j.getAndIncrement();

@@ -1,4 +1,5 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'pry', '0.11.3'
 gem 'pry-doc', '0.13.3'
+gem 'racc', '1.4.12'
