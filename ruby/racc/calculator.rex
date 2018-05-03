@@ -15,7 +15,7 @@ macro
 # 2. http://testerstories.com/2012/06/a-tester-learns-rex-and-racc-part-2/
 #
 rule
-  {BLANK}
+  {BLANK_MACRO}
   {DIGIT_MACRO}     { [:DIGIT, text.to_i] }
   {ADD_MACRO}       { [:ADD, text] }
   {SUBSTRACT_MACRO} { [:SUBSTRACT, text] }

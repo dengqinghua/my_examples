@@ -57,7 +57,7 @@ class Calculator < Racc::Parser
     token = case @state
     when nil
       case
-      when (text = @ss.scan(/{BLANK}/))
+      when (text = @ss.scan(/[ \t]+/))
         ;
 
       when (text = @ss.scan(/\d+/))
