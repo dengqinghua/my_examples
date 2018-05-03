@@ -10,8 +10,11 @@ Racc
 
 --------------------------------------------------------------------------------
 
+NOTE: 请阅读博文: [racc](http://blog.dengqinghua.net/racc.html)
+
 Rex 和 Racc 的来源
 ------------------
+### Yacc和Lexical
 Racc和Rex分别来源于单词 [Yacc](https://en.wikipedia.org/wiki/Yacc) 和 `Lexical Analyser`
 
 在我们定义一个语言的时候, 需要解决两个问题
@@ -21,19 +24,18 @@ Racc和Rex分别来源于单词 [Yacc](https://en.wikipedia.org/wiki/Yacc) 和 `
 
 其中 Lexical 就是`词汇`的抽象, Yacc 就是`语法`的抽象
 
-![racc_example](images/racc_example.png)
+![racc_example](https://raw.githubusercontent.com/dengqinghua/roses/master/assets/images/racc_example.png)
 
 对应Racc和Rex, 也是做相同的事情, 仅仅是解析和定义的语言为Ruby, 所以用R开头
 
-对应的git地址
-
+### Git地址
 - [Racc](https://github.com/tenderlove/racc)
 - [Rexical](https://github.com/tenderlove/rexical)
 
 Rex
 ---
 ### 示例
-在示例代码 [calculator.rex](./calculator.rex) 定义了词汇
+在示例代码 [calculator.rex](https://github.com/dengqinghua/my_examples/blob/master/ruby/racc/calculator.rex) 定义了词汇
 
 如规则
 
@@ -60,7 +62,7 @@ Racc
 ### 示例
 有了词汇之后, 我们就可以定义语法了.
 
-在示例代码 [calculator.y](./calculator.rex) 定义了语法
+在示例代码 [calculator.y](https://github.com/dengqinghua/my_examples/blob/master/ruby/racc/calculator.y) 定义了语法
 
 ```ruby
 rule
@@ -91,7 +93,7 @@ end
 
 执行
 
-```
+```shell
 rex calculator.rex -o calculator.rex.rb
 racc calculator.y -o calculator.racc.rb
 ```
@@ -102,13 +104,13 @@ NOTE: 在这之前需要安装 racc 这个gem. 可以通过 `gem install racc` �
 
 NOTE: 希望之后可以添加Rspec测试, 这样更加直观和规范
 
-```
+```shell
 pry -r ./calculator.racc.rb
 ```
 
 在console中输入
 
-```
+```ruby
 Calculator.new.parse("2 + 2") #=> 输出 4
 Calculator.new.parse("2 - 2") #=> 输出 0
 Calculator.new.parse("2 * 3") #=> 输出 6
