@@ -3,7 +3,6 @@ package com.dengqinghua.concurrency;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -107,10 +106,11 @@ public class AtomicKlassTest {
         threads.forEach((thread) -> {
             try {
                 thread.join();
-            } catch (Exception ex) {
+            } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
         });
+
 
         assertThat(object.getJ(), equalTo(1000));
     }

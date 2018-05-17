@@ -2,6 +2,8 @@ package com.dengqinghua.concurrency;
 
 import org.junit.Test;
 
+import java.util.concurrent.locks.Lock;
+
 public class LockObjectTest {
     LockObject object = new LockObject();
 

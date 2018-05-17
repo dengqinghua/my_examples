@@ -1,8 +1,6 @@
 package com.dengqinghua.algorithms;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * AVL (Adelson-Velskii and Landis) Tree
