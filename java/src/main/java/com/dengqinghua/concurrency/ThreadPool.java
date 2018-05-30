@@ -31,6 +31,14 @@ public class ThreadPool {
 
     private static final int THREAD_COUNT = 100;
     private static final Executor executor = Executors.newFixedThreadPool(THREAD_COUNT);
+
+    /**
+     * 线程池的组成
+     *
+     *      Executor
+     *
+     * @throws IOException
+     */
     public static void runMuiltThreadServerWithThreadPool() throws IOException {
         ServerSocket socket = new ServerSocket(10080);
 

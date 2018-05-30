@@ -1,15 +1,18 @@
 package com.dengqinghua;
 
+import com.dengqinghua.concurrency.LockObject;
 import org.junit.Test;
 
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
 
 public class EverythingTest {
@@ -58,6 +61,10 @@ public class EverythingTest {
         assertThat(crc32One.getValue(), is(equalTo(crc32Two.getValue())));
     }
 
+    @Test public void getProcessors() {
+        assertThat(Runtime.getRuntime().availableProcessors(), is(greaterThan(1)));
+    }
+
     @Test public void testBitOperation() {
         int i = 3, j = 5;
 
@@ -104,6 +111,136 @@ public class EverythingTest {
 
         // ^ 为 位异或, 相同位的设置为0, 不同位设置为1
         assertThat(Integer.toBinaryString(h ^ (h >>> 4)), is("110001000111"));
-        assertThat(Integer.toBinaryString(18), is(1));
+        assertThat(Integer.toBinaryString(18), is("10010"));
+    }
+
+    @Test public void testThreadPoolSizeDefinition() throws Exception {
+        // 线程池的队列的容量设置为 2^29 - 1
+        int count_bits = Integer.SIZE - 3, // 29位
+                capacity = (1 << count_bits) - 1;
+
+        int running = -1 << count_bits,       // 11100000000000000000000000000000 -536870912
+                shutdown = 0,
+                stop = 1 << count_bits,       // 00100000000000000000000000000000 536870912
+                tyding = 2 << count_bits,     // 01000000000000000000000000000000 1073741824
+                terminated = 3 << count_bits; // 01100000000000000000000000000000 1610612736
+
+        assertThat(Integer.toBinaryString(running), is("11100000000000000000000000000000"));
+        assertThat(running, is(-536870912));
+        assertThat(Integer.toBinaryString(running).length(), is(32));
+
+        assertThat(Integer.toBinaryString(stop), is("100000000000000000000000000000"));
+        assertThat(stop, is(536870912));
+        assertThat(Integer.toBinaryString(stop).length(), is(30));
+
+        assertThat(Integer.toBinaryString(tyding), is("1000000000000000000000000000000"));
+        assertThat(tyding, is(1073741824));
+        assertThat(Integer.toBinaryString(tyding).length(), is(31));
+
+        assertThat(Integer.toBinaryString(terminated), is("1100000000000000000000000000000"));
+        assertThat(terminated, is(1610612736));
+        assertThat(Integer.toBinaryString(terminated).length(), is(31));
+
+        assertThat(capacity, is(536870911));
+        assertThat(Integer.toBinaryString(capacity).length(), is(29));
+        assertThat(Integer.toBinaryString(capacity), is("11111111111111111111111111111"));
+
+        assertThat(Integer.toBinaryString(-1), is("11111111111111111111111111111111"));
+        assertThat(Integer.toBinaryString(-1).length(), is(32));
+    }
+
+    @Test public void testInheritedMethods () throws Exception {
+        LockObject object = new Inherited();
+
+        // 在这里虽然 object 被 cast 成了 LockObject
+        // 但是 object 的方法依旧是 Inherited 的方法
+        object.lockAndSleep();
+
+
+        int i = 1 << 2;
+        // 100
+        // 001
+        // 101
+        assertThat(i, is(4));
+        assertThat(~i, is(-5));
+        assertThat(Integer.toBinaryString(~i), is("11111111111111111111111111111011"));
+        assertThat(1 ^ i, is(5));
+
+        // 由于被 cast 了, inSideMethod 这个方法无法被调用到了
+        // object.inSideMethod()
+    }
+
+    @Test public void testRetry() throws Exception {
+        int i = 0;
+        retry:
+        for(;;) {
+            i++;
+
+            if (i > 10) {
+                break retry;
+            }
+        }
+    }
+
+    /**
+     * An object has state, behavior, and identity
+     *
+     * <pre>
+     * A final class cannot be extended by any other class
+     * A final variable cannot be reassigned to another value
+     * A final method cannot be overridden
+     *
+     * Reference: https://stackoverflow.com/q/5181578/8186609
+     */
+    @Test public void finalTest() throws Exception {
+        final int a = 1;
+        final Object b;
+        final TestFinalClass finalClass = new TestFinalClass();
+
+        // 设置 a = 2 会无法通过编译
+        // a = 2;
+
+        // Object b 由于没有被赋值, 所以 b = 1 设置是ok的
+        b = 1;
+        // 设置 b = 2 会无法通过编译
+        // b = 2;
+
+        // 设置 属性 (state) 是可以成功的
+        finalClass.a = 1;
+
+        assertThat(finalClass.a, is(1));
+    }
+
+    // TimeUnit 插件, 太棒了!
+    @Test public void testNano() throws Exception {
+        assertThat(TimeUnit.DAYS.toNanos(1), is(86400000000000L));
+
+        assertThat(TimeUnit.SECONDS.toNanos(1), is(1000000000L));
+        assertThat(TimeUnit.SECONDS.toSeconds(1), is(1L));
+    }
+}
+
+final class TestFinalClass {
+    int a;
+}
+
+// final 的 class 不能被 extended
+
+// class TryExtendFinalClass extends TestFinalClass {
+// }
+
+class Inherited extends LockObject {
+    @Override public void lockAndSleep() {
+        System.out.println("In Inherited. Beigin...");
+
+        super.lockAndSleep();
+
+        System.out.println("In Inherited. After...");
+    }
+
+    static void staticMethod() {
+    }
+
+    public void inSideMethod() {
     }
 }
