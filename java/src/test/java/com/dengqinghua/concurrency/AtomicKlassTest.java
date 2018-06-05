@@ -77,7 +77,6 @@ public class AtomicKlassTest {
             }
         });
 
-
         Thread threadToNotify = new Thread(() -> {
             System.out.println("==== in notify thread ====");
 
@@ -86,6 +85,7 @@ public class AtomicKlassTest {
                 object.notify();
             }
         });
+
         // 注意, 这里有顺序问题, 如果 notify 先于 wait, 后续没有再 notify 了, 那么 wait 就一直在等待着了
         thread.start();
         threadToNotify.start();

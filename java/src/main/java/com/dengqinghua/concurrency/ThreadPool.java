@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class ThreadPool {
     public static void runSingleThreadServer() throws IOException {
@@ -31,14 +30,20 @@ public class ThreadPool {
 
     private static final int THREAD_COUNT = 100;
     private static final Executor executor = Executors.newFixedThreadPool(THREAD_COUNT);
+    private static final ExecutorService executorFuture = Executors.newFixedThreadPool(THREAD_COUNT);
 
-    /**
-     * 线程池的组成
-     *
-     *      Executor
-     *
-     * @throws IOException
-     */
+    public static void runMuiltThreadServerWithThreadPool_Future()
+            throws IOException, InterruptedException, ExecutionException {
+        ServerSocket socket = new ServerSocket(10080);
+
+        while (true) {
+            final Socket connection = socket.accept();
+            Future a = executorFuture.submit(() -> handleConnection(connection));
+            System.out.println(a.get());
+            System.out.println(a.isDone());
+        }
+    }
+
     public static void runMuiltThreadServerWithThreadPool() throws IOException {
         ServerSocket socket = new ServerSocket(10080);
 

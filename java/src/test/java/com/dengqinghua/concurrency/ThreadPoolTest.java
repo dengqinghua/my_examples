@@ -13,4 +13,8 @@ public class ThreadPoolTest {
     @Ignore @Test public void runMultiThreadServerTest() throws Exception {
         ThreadPool.runMuiltThreadServerWithThreadPool();
     }
+
+    @Ignore @Test public void runMultiThreadServerTest_Future() throws Exception {
+        ThreadPool.runMuiltThreadServerWithThreadPool_Future();
+    }
 }

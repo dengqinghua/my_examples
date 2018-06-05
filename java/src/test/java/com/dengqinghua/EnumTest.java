@@ -20,6 +20,7 @@ public class EnumTest {
 
         SN {
             String say(String words) { return "SNV587! " + words; }
+            // 下面的代码编译会不通过
             // String toS() { return "I am SN, a beautiful girl"; }
         },
 
@@ -41,13 +42,8 @@ public class EnumTest {
         int value = -1;
 
         // 这里可以设置不同的 Constructor
-        AEnum(int i) {
-            this.value = i;
-        }
-
-        AEnum() {
-            this.value = 1024;
-        }
+        AEnum(int i) { this.value = i; }
+        AEnum()      { this.value = 1024; }
 
         /**
          *  注意:
