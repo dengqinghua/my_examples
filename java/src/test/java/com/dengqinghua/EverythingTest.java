@@ -4,16 +4,15 @@ import com.dengqinghua.concurrency.LockObject;
 import org.junit.Test;
 
 import java.lang.ref.SoftReference;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 public class EverythingTest {
     private class InnerClass {
@@ -217,6 +216,32 @@ public class EverythingTest {
 
         assertThat(TimeUnit.SECONDS.toNanos(1), is(1000000000L));
         assertThat(TimeUnit.SECONDS.toSeconds(1), is(1L));
+    }
+
+    @Test
+    public void testIntToLong() throws Exception {
+        int[] array = new int[] { 1, 2, 3, 4 };
+        long[] array1 = new long[] { 5, 6, 7, 8 };
+
+        List<Long> list = Arrays.stream(array).
+                mapToLong(Long::valueOf).
+                boxed().
+                collect(Collectors.toList());
+
+        assertThat(list, contains(1L, 2L, 3L, 4L));
+
+        list.addAll(Arrays.stream(array1).boxed().collect(Collectors.toList()));
+
+        assertThat(list, contains(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L));
+
+        Map<Integer, List<Long>> map = list.
+                stream().
+                collect(Collectors.groupingBy(i -> list.indexOf(i) % 3));
+
+        assertThat(map.get(0), contains(1L, 4L, 7L));
+        assertThat(map.get(1), contains(2L, 5L, 8L));
+        assertThat(map.get(2), contains(3L, 6L));
+        assertThat(map.size(), is(3));
     }
 }
 

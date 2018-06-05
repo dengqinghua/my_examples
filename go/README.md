@@ -37,6 +37,7 @@ Go 学习
 - [gRPC](https://github.com/grpc/grpc-go)
 - [Net Work Programming with Go](https://github.com/tumregels/Network-Programming-with-Go)
 - [Building Web Apps with Go](https://codegangsta.gitbooks.io/building-web-apps-with-go/content/)
+- GC
 
 项目
 ---
