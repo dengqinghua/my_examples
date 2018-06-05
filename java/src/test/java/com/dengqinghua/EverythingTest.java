@@ -218,8 +218,7 @@ public class EverythingTest {
         assertThat(TimeUnit.SECONDS.toSeconds(1), is(1L));
     }
 
-    @Test
-    public void testIntToLong() throws Exception {
+    @Test public void testIntToLong() throws Exception {
         int[] array = new int[] { 1, 2, 3, 4 };
         long[] array1 = new long[] { 5, 6, 7, 8 };
 
