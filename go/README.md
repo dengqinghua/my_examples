@@ -6,7 +6,7 @@ Go 学习
 技术栈
 ------
 ### 编辑器
-> Vim For Everything Language.
+> Vim and Only Vim.
 
 [fatih/vim-go](https://github.com/fatih/vim-go)
 
