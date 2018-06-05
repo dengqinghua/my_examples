@@ -38,7 +38,7 @@ Go 学习
 - [Net Work Programming with Go](https://github.com/tumregels/Network-Programming-with-Go)
 - [Building Web Apps with Go](https://codegangsta.gitbooks.io/building-web-apps-with-go/content/)
 
-### 项目
-[Go Strings](https://github.com/dengqinghua)
-
-用Go语言做跟音乐相关的东西
+项目
+---
+### Go Strings
+用Go语言做跟音乐相关的东西, 正在筹划中
