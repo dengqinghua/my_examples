@@ -3,13 +3,13 @@ package com.dengqinghua;
 import com.dengqinghua.concurrency.LockObject;
 import org.junit.Test;
 
-import java.lang.ref.SoftReference;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.zip.CRC32;
-import java.util.zip.Checksum;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
