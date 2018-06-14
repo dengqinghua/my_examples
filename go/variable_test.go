@@ -15,8 +15,7 @@ import (
 func TestVariables(t *testing.T) {
 	g := Goblin(t)
 	g.Describe("variable use var", func() {
-		var power int
-		power = 9000
+		var power = 9000
 
 		g.It("should get right", func() {
 			g.Assert(power).Equal(9000)
