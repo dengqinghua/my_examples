@@ -1,6 +1,6 @@
-package main
+package golang
 
-func add(a int, b int) int {
+func Add(a int, b int) int {
 	return a + b
 }
 

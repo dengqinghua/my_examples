@@ -1,4 +1,4 @@
-package main
+package golang
 
 import (
 	. "github.com/franela/goblin"
@@ -34,6 +34,8 @@ func TestDecrOneHeadCountInComposition(t *testing.T) {
 			// 测试发现, 如果有Name字段, 则会优先使用自己的.
 			//
 			g.Assert(module.Name).Equal("商家模块")
+			// 其实是生成了一个默认的叫做 Department 的field
+			g.Assert(module.Department.Name).Equal("招商团队")
 
 			// 如果有两个 compostion 都有相同的字段, 会报错
 		})

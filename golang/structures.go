@@ -1,4 +1,4 @@
-package main
+package golang
 
 // 使用 struct 实现类似于 OO 的功能
 // 部门

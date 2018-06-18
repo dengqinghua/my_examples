@@ -1,4 +1,4 @@
-package main
+package golang
 
 import (
 	. "github.com/franela/goblin"
@@ -14,9 +14,9 @@ import (
 //
 func TestFunctions(t *testing.T) {
 	g := Goblin(t)
-	g.Describe("function add", func() {
+	g.Describe("function Add", func() {
 		g.It("should get right value", func() {
-			g.Assert(add(1, 2)).Equal(3)
+			g.Assert(Add(1, 2)).Equal(3)
 		})
 	})
 
