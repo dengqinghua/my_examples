@@ -28,12 +28,10 @@ func TestFunctions(t *testing.T) {
 
 	g.Describe("function dsg", func() {
 		g.It("should get right value", func() {
-			g.Assert(dsg("ds")).Equal("dsgv587")
-			g.Assert(dsg("dsg")).Equal("Get Out")
+			boolResult, val := dsg("ds")
 
-			// boolVal, stringResult := dsg("hehe")
-			// g.Assert(boolVal).Equal(true)
-			// g.Assert(stringResult).Equal("Get Out")
+			g.Assert(boolResult).IsTrue()
+			g.Assert(val).Equal("dsgv587")
 		})
 	})
 }

@@ -10,10 +10,21 @@ func addShortCut(a, b int) int {
 }
 
 // Fixme: 什么时候会需要这个bool?
-func dsg(name string) (bool string) {
+func dsg(name string) (bool, string) {
 	if name == "ds" {
-		return "dsgv587"
+		return true, "dsgv587"
 	} else {
-		return "Get Out"
+		return false, "Get Out"
 	}
+}
+
+// Functions are first-class types
+
+type firstClassFunction func(a, b int) int
+
+// 这个例子举得不好, 以后有好例子再添加上, 暂时不写测试了
+func makeFunc(a, b int) int {
+	var f firstClassFunction
+
+	return f(1, 2)
 }

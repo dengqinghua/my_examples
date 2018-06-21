@@ -28,6 +28,7 @@ func TestOs(t *testing.T) {
 	g.Describe("Args Test", func() {
 		g.It("should get args", func() {
 			g.Assert(len(os.Args[0]) > 0).IsTrue()
+			g.Assert(len("[]")).Equal(2)
 		})
 	})
 }
