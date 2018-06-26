@@ -32,11 +32,16 @@ func TestVariables(t *testing.T) {
 		var power = 9000
 
 		Convey("should get right v1", func() {
-			So(power, ShouldEqual, 9000)
+			power++
+			So(power, ShouldEqual, 9001)
 		})
 
 		powerOne := 9000
 		Convey("should get right v2", func() {
+			// 注意这里! power 是被隔离的!! 又变成9000 了
+			// 所以这里没有before的语法, 自带了这种功能
+			So(power, ShouldEqual, 9000)
+
 			So(powerOne, ShouldEqual, 9000)
 		})
 
