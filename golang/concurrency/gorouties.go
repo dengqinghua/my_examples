@@ -2,6 +2,7 @@ package concurrency
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -22,6 +23,19 @@ func process() {
 
 var N = 0
 
+// 这里是放在一组了, 分开写也是可以的
+var (
+	M    = 0
+	lock sync.Mutex
+)
+
 func dangerIncr() {
 	N++
+}
+
+func safeIncr() {
+	lock.Lock()
+	defer lock.Unlock()
+
+	M++
 }

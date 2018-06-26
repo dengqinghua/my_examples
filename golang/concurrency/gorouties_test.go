@@ -1,7 +1,6 @@
 package concurrency
 
 import (
-	"fmt"
 	. "github.com/franela/goblin"
 	"testing"
 	"time"
@@ -29,9 +28,19 @@ func TestRaceCondition(t *testing.T) {
 			}
 
 			time.Sleep(time.Millisecond * 100)
-			fmt.Println(N)
 			// 偶偶尔会报错
 			g.Assert(N < 1000).IsTrue()
+		})
+	})
+
+	g.Describe("incr 1000 times in goroutines with LOCK", func() {
+		g.It("should exactly equal 1000", func() {
+			for i := 0; i < 1000; i++ {
+				go safeIncr()
+			}
+
+			time.Sleep(time.Millisecond * 100)
+			g.Assert(M).Equal(1000)
 		})
 	})
 }
