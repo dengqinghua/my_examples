@@ -1,39 +1,39 @@
 package golang
 
 import (
-	. "github.com/franela/goblin"
+	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
-// go test -run TestFunctions
+// go test -v -run TestFunctions
 func TestFunctions(t *testing.T) {
-	g := Goblin(t)
-	g.Describe("function Add", func() {
-		g.It("should get right value", func() {
-			g.Assert(Add(1, 2)).Equal(3)
+	Convey("TestFunctions", t, func() {
+		Convey("function Add", func() {
+			Convey("should get right value", func() {
+				So(Add(1, 2), ShouldEqual, 3)
+			})
 		})
-	})
 
-	g.Describe("function addShortCut", func() {
-		g.It("should get right value", func() {
-			g.Assert(addShortCut(1, 2)).Equal(3)
+		Convey("function addShortCut", func() {
+			Convey("should get right value", func() {
+				So(addShortCut(1, 2), ShouldEqual, 3)
+			})
 		})
-	})
 
-	g.Describe("function dsg", func() {
-		g.It("should get right value", func() {
-			boolResult, val := dsg("ds")
+		Convey("function dsg", func() {
+			Convey("should get right value", func() {
+				boolResult, val := dsg("ds")
 
-			g.Assert(boolResult).IsTrue()
-			g.Assert(val).Equal("dsgv587")
-
+				So(boolResult, ShouldBeTrue)
+				So(val, ShouldEqual, "dsgv587")
+			})
 		})
-	})
 
-	g.Describe("Anonymous function", func() {
-		g.It("should act with no name", func() {
-			f := func(i int) int { return i }
-			g.Assert(f(10)).Equal(10)
+		Convey("Anonymous function", func() {
+			Convey("should act with no name", func() {
+				f := func(i int) int { return i }
+				So(f(10), ShouldEqual, 10)
+			})
 		})
 	})
 }

@@ -1,17 +1,15 @@
 package golang
 
 import (
-	. "github.com/franela/goblin"
+	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
-// go test -run TestThirdRuleDefer
+// go test -v -run TestThirdRuleDefer
 func TestThirdRuleDefer(t *testing.T) {
-	g := Goblin(t)
-
-	g.Describe("test the third defer rule", func() {
-		g.It("should return 2", func() {
-			g.Assert(incrI()).Equal(2)
+	Convey("test the third defer rule", t, func() {
+		Convey("should return 2", func() {
+			So(incrI(), ShouldEqual, 2)
 		})
 	})
 }

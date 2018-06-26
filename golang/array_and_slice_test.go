@@ -2,8 +2,7 @@
 package golang
 
 import (
-	. "github.com/franela/goblin"
-	"github.com/stretchr/testify/assert"
+	. "github.com/smartystreets/goconvey/convey"
 
 	// 这里是 $GOAPTH/src/testing
 	// 寻找方式为:
@@ -16,75 +15,71 @@ import (
 
 // One way to think about arrays is as a sort of struct but with indexed rather than named fields: a fixed-size composite value.
 //
-// go test -run TestBasicArrayOperations
+// go test -v -run TestBasicArrayOperations
 func TestBasicArrayOperations(t *testing.T) {
-	g := Goblin(t)
-
-	g.Describe("init and iterate", func() {
-		g.It("should successfully init", func() {
+	Convey("init and iterate", t, func() {
+		Convey("should successfully init", func() {
 			var scores [10]int
 
 			scores[0] = 19
-			g.Assert(scores[0]).Equal(19)
+			So(scores[0], ShouldEqual, 19)
 
 			// 轮询操作
 			for index, value := range scores {
 				if index == 0 {
-					g.Assert(value).Equal(19)
+					So(value, ShouldEqual, 19)
 				} else {
 					// 默认值为0
-					g.Assert(value).Equal(0)
+					So(value, ShouldEqual, 0)
 				}
 			}
 		})
 	})
 }
 
-// go test -run TestSlice
+// go test -v -run TestSlice
 func TestSlice(t *testing.T) {
-	g := Goblin(t)
-	testify := assert.New(t)
+	Convey("TestSlice", t, func() {
+		Convey("len and cap", func() {
+			slices := make([]byte, 5, 10)
+			slicesTwo := make([]byte, 8)
 
-	g.Describe("len and cap", func() {
-		slices := make([]byte, 5, 10)
-		slicesTwo := make([]byte, 8)
+			Convey("should get length and capacity", func() {
+				So(slices, ShouldHaveLength, 5)
+				So(cap(slices), ShouldEqual, 10)
 
-		g.It("should get length and capacity", func() {
-			g.Assert(len(slices)).Equal(5)
-			g.Assert(cap(slices)).Equal(10)
-
-			g.Assert(len(slicesTwo)).Equal(8)
-			g.Assert(cap(slicesTwo)).Equal(8)
+				So(slicesTwo, ShouldHaveLength, 8)
+				So(cap(slicesTwo), ShouldEqual, 8)
+			})
 		})
-	})
 
-	slices := make([]int, 0, 10)
+		slices := make([]int, 0, 10)
 
-	// testify乱入... 貌似 goblin 不支持测试 Panics ...
-	// 直接赋值是不行的, 因为没有预分配 len
-	testify.Panics(func() { slices[4] = 122 })
+		// testify乱入... 貌似 goblin 不支持测试 Panics ...
+		// 直接赋值是不行的, 因为没有预分配 len
+		So(func() { slices[4] = 122 }, ShouldPanic)
 
-	g.Describe("append", func() {
-		// 可以使用append
-		slices = append(slices, 10)
+		Convey("append", func() {
+			// 可以使用append
+			slices = append(slices, 10)
 
-		g.It("should append ok", func() {
-			g.Assert(slices[0]).Equal(10)
+			Convey("should append ok", func() {
+				So(slices[0], ShouldEqual, 10)
+			})
 		})
-	})
 
-	g.Describe("re-slice", func() {
-		// 可以使用append
-		slicesTwo := slices[0:8]
+		Convey("re-slice", func() {
+			// 可以使用append
+			slicesTwo := slices[0:8]
 
-		g.It("should append ok", func() {
-			slicesTwo[7] = 1024
-			g.Assert(slicesTwo[0]).Equal(10)
-			// 不再 panic
-			g.Assert(slicesTwo[7]).Equal(1024)
+			Convey("should append ok", func() {
+				slicesTwo[7] = 1024
+				So(slicesTwo[0], ShouldEqual, 0)
 
-			// testify乱入... 貌似 goblin 不支持 Contains 这种方法...
-			testify.Contains(slicesTwo, 10, 0, 0, 0, 0, 0, 0, 1024)
+				// 不再 panic
+				// []int{0, 0, 0, 0, 0, 0, 0, 1024}
+				So(slicesTwo[7], ShouldEqual, 1024)
+			})
 		})
 	})
 }

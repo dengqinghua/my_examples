@@ -1,34 +1,29 @@
 package golang
 
 import (
-	"fmt"
-	. "github.com/franela/goblin"
+	. "github.com/smartystreets/goconvey/convey"
 	"os"
 	"testing"
 )
 
-// go test -run TestSum
+// go test -v -run TestSum
 func TestSum(t *testing.T) {
-	g := Goblin(t)
-	g.Describe("Numbers", func() {
+	Convey("Numbers", t, func() {
 		// Passing Test
-		g.It("Should add two numbers ", func() {
-			g.Assert(Sum(1, 1)).Equal(2)
+		Convey("Should add two numbers ", func() {
+			So(Sum(1, 1), ShouldEqual, 2)
 		})
 	})
 }
 
 // 传入的参数
-// go test -run TestOs -args 1000 1
+// go test -v -run TestOs -args 1000 1
 // Args: TestOs 1000 1
 func TestOs(t *testing.T) {
-	g := Goblin(t)
-
-	fmt.Println("ds")
-	g.Describe("Args Test", func() {
-		g.It("should get args", func() {
-			g.Assert(len(os.Args[0]) > 0).IsTrue()
-			g.Assert(len("[]")).Equal(2)
+	Convey("Args Test", t, func() {
+		Convey("should get args", func() {
+			So(len(os.Args), ShouldBeGreaterThan, 0)
+			So("[]", ShouldHaveLength, 2)
 		})
 	})
 }

@@ -20,39 +20,35 @@ package golang
 // 注意到其中的 error 也是 built in types, 这个是和其他语言非常不同的
 
 import (
-	"errors"
-	. "github.com/franela/goblin"
+	. "github.com/smartystreets/goconvey/convey"
 	"io"
 	"testing"
 )
 
-// go test -run TestGetErrorInfo
+// go test -v -run TestGetErrorInfo
 func TestGetErrorInfo(t *testing.T) {
-	g := Goblin(t)
-
-	g.Describe("test GetErrorInfo", func() {
-		g.It("should get number", func() {
+	Convey("test GetErrorInfo", t, func() {
+		Convey("should get number", func() {
 			n1, err1 := getErrorInfo("10")
-			g.Assert(n1).Equal(10)
-			g.Assert(err1).Equal(nil)
+			So(n1, ShouldEqual, 10)
+			So(err1, ShouldBeNil)
 
 			n2, err2 := getErrorInfo("ds")
-			g.Assert(n2).Equal(0)
-			g.Assert(err2.Error()).Equal("strconv.Atoi: parsing \"ds\": invalid syntax")
+			So(n2, ShouldEqual, 0)
+			So(err2.Error(), ShouldEqual, "strconv.Atoi: parsing \"ds\": invalid syntax")
 		})
 	})
 
-	g.Describe("test process", func() {
-		g.It("should return error or nil", func() {
-			g.Assert(process(10)).Equal(nil)
-			g.Assert(process(0)).Equal(errors.New("Invalid Count"))
-			g.Assert(process(0).Error()).Equal("Invalid Count")
+	Convey("test process", t, func() {
+		Convey("should return error or nil", func() {
+			So(process(10), ShouldBeNil)
+			So(process(0).Error(), ShouldEqual, "Invalid Count")
 		})
 	})
 
-	g.Describe("test IO EOF", func() {
-		g.It("should return EOF", func() {
-			g.Assert(io.EOF.Error()).Equal("EOF")
+	Convey("test IO EOF", t, func() {
+		Convey("should return EOF", func() {
+			So(io.EOF.Error(), ShouldEqual, "EOF")
 		})
 	})
 }

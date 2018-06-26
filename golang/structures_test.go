@@ -1,38 +1,37 @@
 package golang
 
 import (
-	. "github.com/franela/goblin"
+	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
-// go test -run TestStructures
+// go test -v -run TestStructures
 func TestStructures(t *testing.T) {
-	g := Goblin(t)
-	g.Describe("init", func() {
-		g.Describe("assigin", func() {
+	Convey("init", t, func() {
+		Convey("assigin", func() {
 			zhaoshang := Department{}
 
 			zhaoshang.Name = "招商Ruby"
 			zhaoshang.HeadCount = 33
 
-			g.It("should assin Name and HeadCount", func() {
-				g.Assert(zhaoshang.Name).Equal("招商Ruby")
-				g.Assert(zhaoshang.HeadCount).Equal(33)
+			Convey("should assin Name and HeadCount", func() {
+				So(zhaoshang.Name, ShouldEqual, "招商Ruby")
+				So(zhaoshang.HeadCount, ShouldEqual, 33)
 			})
 		})
 
-		g.Describe("should assin Name and HeadCount", func() {
+		Convey("should assin Name and HeadCount", func() {
 			zhaoshang := Department{"招商Ruby", 33}
 
-			g.It("should assin Name and HeadCount", func() {
-				g.Assert(zhaoshang.Name).Equal("招商Ruby")
-				g.Assert(zhaoshang.HeadCount).Equal(33)
+			Convey("should assin Name and HeadCount", func() {
+				So(zhaoshang.Name, ShouldEqual, "招商Ruby")
+				So(zhaoshang.HeadCount, ShouldEqual, 33)
 			})
 		})
 	})
 }
 
-// go test -run TestPointer
+// go test -v -run TestPointer
 
 // 为什么要有指针?
 // 从功能上来说, Go传参的时候是传递的是 copies
@@ -43,91 +42,89 @@ func TestStructures(t *testing.T) {
 // &X: 获得 X的 Address
 // *X: 获得 Address X 对应的 Poiter, 注意 X 需要是一个 Address, 这是前提
 func TestPointer(t *testing.T) {
-	g := Goblin(t)
+	Convey("TestPointer", t, func() {
+		Convey("given copy", func() {
+			Convey("should not change zhaoshang's HeadCount to 34", func() {
+				zhaoshang := Department{"招商Ruby", 33}
+				addCount(zhaoshang)
 
-	g.Describe("given copy", func() {
-		g.It("should not change zhaoshang's HeadCount to 34", func() {
-			zhaoshang := Department{"招商Ruby", 33}
-			addCount(zhaoshang)
-
-			// 并没有加1, 因为传递的是值的拷贝, zhaoshang 本身并没有被修改
-			g.Assert(zhaoshang.HeadCount).Equal(33)
+				// 并没有加1, 因为传递的是值的拷贝, zhaoshang 本身并没有被修改
+				So(zhaoshang.HeadCount, ShouldEqual, 33)
+			})
 		})
-	})
 
-	g.Describe("given pointer", func() {
-		g.It("should change zhaoshang's HeadCount to 34", func() {
-			zhaoshang := &Department{"招商Ruby", 33}
-			reallyAddCount(zhaoshang)
+		Convey("given pointer", func() {
+			Convey("should change zhaoshang's HeadCount to 34", func() {
+				zhaoshang := &Department{"招商Ruby", 33}
+				reallyAddCount(zhaoshang)
 
-			g.Assert(zhaoshang.HeadCount).Equal(34)
+				So(zhaoshang.HeadCount, ShouldEqual, 34)
+			})
 		})
-	})
 
-	g.Describe("given *&", func() {
-		g.It("should equal", func() {
-			// 获取值
-			zhaoshang := Department{"招商Ruby", 33}
-			g.Assert(*(&zhaoshang)).Equal(zhaoshang)
+		Convey("given *&", func() {
+			Convey("should equal", func() {
+				// 获取值
+				zhaoshang := Department{"招商Ruby", 33}
+				So(*(&zhaoshang), ShouldNotEqual, zhaoshang)
+			})
 		})
-	})
 
-	g.Describe("given &*", func() {
-		g.It("should equal", func() {
-			zhaoshang := &Department{"招商Ruby", 33}
-			g.Assert(&(*zhaoshang)).Equal(zhaoshang)
+		Convey("given &*", func() {
+			Convey("should equal", func() {
+				zhaoshang := &Department{"招商Ruby", 33}
+				So(&(*zhaoshang), ShouldEqual, zhaoshang)
+			})
 		})
 	})
 }
 
-// go test -run TestDecr
+// go test -v -run TestDecr
 func TestDecr(t *testing.T) {
-	g := Goblin(t)
-	g.Describe("DecrOneHeadCount", func() {
+	Convey("DecrOneHeadCount", t, func() {
 		// 用两种方式均可
 		zhaoshang := &Department{"招商Ruby", 33}
 		zhaoshangOne := Department{"招商Ruby", 33}
 
-		g.It("should Decr HeadCount by 1", func() {
+		Convey("should Decr HeadCount by 1", func() {
 			zhaoshang.DecrOneHeadCount()
 			zhaoshangOne.DecrOneHeadCount()
 
-			g.Assert(zhaoshang.HeadCount).Equal(32)
-			g.Assert(zhaoshangOne.HeadCount).Equal(32)
+			So(zhaoshang.HeadCount, ShouldEqual, 32)
+			So(zhaoshangOne.HeadCount, ShouldEqual, 32)
 		})
 	})
 }
 
-// go test -run TestConstructors
+// go test -v -run TestConstructors
 func TestConstructors(t *testing.T) {
-	g := Goblin(t)
-	g.Describe("newDepartment", func() {
+	Convey("newDepartment", t, func() {
 		// 用两种方式均可
 		zhaoshang := newDepartment("招商Ruby", 22)
 
-		g.It("should return a newDepartment", func() {
-			g.Assert(zhaoshang.Name).Equal("招商Ruby")
-			g.Assert(zhaoshang.HeadCount).Equal(22)
+		Convey("should return a newDepartment", func() {
+			So(zhaoshang.Name, ShouldEqual, "招商Ruby")
+			So(zhaoshang.HeadCount, ShouldEqual, 22)
 		})
 	})
 
-	g.Describe("newDepartmentVersionTwo", func() {
+	Convey("newDepartmentVersionTwo", t, func() {
 		// 用两种方式均可
 		zhaoshang := newDepartmentVersionTwo("招商Ruby", 12)
 
-		g.It("should return a newDepartment", func() {
-			g.Assert(zhaoshang.Name).Equal("招商Ruby")
-			g.Assert(zhaoshang.HeadCount).Equal(12)
+		Convey("should return a newDepartment", func() {
+			So(zhaoshang.Name, ShouldEqual, "招商Ruby")
+			So(zhaoshang.HeadCount, ShouldEqual, 12)
 		})
 	})
 
-	g.Describe("newDepartmentVersionPointer", func() {
+	Convey("newDepartmentVersionPointer", t, func() {
 		// 用两种方式均可
 		zhaoshang := newDepartmentVersionPointer("招商Ruby", 22)
 
-		g.It("should return a newDepartment", func() {
-			g.Assert(zhaoshang.Name).Equal("招商Ruby")
-			g.Assert(zhaoshang.HeadCount).Equal(22)
+		Convey("should return a newDepartment", func() {
+			So(zhaoshang.Name, ShouldEqual, "招商Ruby")
+			So(zhaoshang.HeadCount, ShouldEqual, 22)
 		})
 	})
 }

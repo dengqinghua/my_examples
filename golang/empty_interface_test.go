@@ -1,35 +1,35 @@
 package golang
 
 import (
-	. "github.com/franela/goblin"
+	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
-// go test -run TestGetType
+// go test -v -run TestGetType
 func TestGetType(t *testing.T) {
-	g := Goblin(t)
-
-	g.Describe("when int", func() {
-		g.It("should return int", func() {
-			g.Assert(getType(1024)).Equal("int")
+	Convey("TestGetType", t, func() {
+		Convey("when int", func() {
+			Convey("should return int", func() {
+				So(getType(1024), ShouldEqual, "int")
+			})
 		})
-	})
 
-	g.Describe("when bool", func() {
-		g.It("should return bool", func() {
-			g.Assert(getType(true)).Equal("bool")
+		Convey("when bool", func() {
+			Convey("should return bool", func() {
+				So(getType(true), ShouldEqual, "bool")
+			})
 		})
-	})
 
-	g.Describe("when string", func() {
-		g.It("should return string", func() {
-			g.Assert(getType("dsgv587")).Equal("string")
+		Convey("when string", func() {
+			Convey("should return string", func() {
+				So(getType("true"), ShouldEqual, "string")
+			})
 		})
-	})
 
-	g.Describe("when others", func() {
-		g.It("should return unknown", func() {
-			g.Assert(getType(1.24)).Equal("unknown")
+		Convey("when others", func() {
+			Convey("should return unknown", func() {
+				So(getType(1.24), ShouldEqual, "unknown")
+			})
 		})
 	})
 }

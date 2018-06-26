@@ -1,57 +1,57 @@
 package golang
 
 import (
-	. "github.com/franela/goblin"
+	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
-// o test -run TestBasicMap
+// go test -v -run TestBasicMap
 func TestBasicMap(t *testing.T) {
-	g := Goblin(t)
+	Convey("TestBasicMap", t, func() {
+		Convey("get, put", func() {
+			Convey("should get right", func() {
+				oneMap := make(map[string]int)
 
-	g.Describe("get, put", func() {
-		g.It("should get right", func() {
-			oneMap := make(map[string]int)
+				oneMap["dsgv"] = 587
 
-			oneMap["dsgv"] = 587
+				value, exist := oneMap["dsgv"]
 
-			value, exist := oneMap["dsgv"]
+				So(exist, ShouldBeTrue)
+				So(value, ShouldEqual, 587)
 
-			g.Assert(exist).IsTrue()
-			g.Assert(value).Equal(587)
+				value, exist = oneMap["dsg"]
 
-			value, exist = oneMap["dsg"]
-
-			g.Assert(exist).IsFalse()
-			g.Assert(value).Equal(0)
+				So(exist, ShouldBeFalse)
+				So(value, ShouldEqual, 0)
+			})
 		})
-	})
 
-	g.Describe("init len", func() {
-		g.It("should set init len", func() {
-			oneMap := make(map[string]int, 10)
-			oneMap["dsgv"] = 587
+		Convey("init len", func() {
+			Convey("should set init len", func() {
+				oneMap := make(map[string]int, 10)
+				oneMap["dsgv"] = 587
 
-			g.Assert(len(oneMap)).Equal(1)
+				So(oneMap, ShouldHaveLength, 1)
+			})
 		})
-	})
 
-	g.Describe("init and range", func() {
-		g.It("should init and range right", func() {
-			oneMap := map[string]int{
-				"dsgv": 587,
-				"wjj":  523,
-			}
-
-			for name, value := range oneMap {
-				if name == "dsgv" {
-					g.Assert(value).Equal(587)
+		Convey("init and range", func() {
+			Convey("should init and range right", func() {
+				oneMap := map[string]int{
+					"dsgv": 587,
+					"wjj":  523,
 				}
 
-				if name == "wjj" {
-					g.Assert(value).Equal(523)
+				for name, value := range oneMap {
+					if name == "dsgv" {
+						So(value, ShouldEqual, 587)
+					}
+
+					if name == "wjj" {
+						So(value, ShouldEqual, 523)
+					}
 				}
-			}
+			})
 		})
 	})
 }
