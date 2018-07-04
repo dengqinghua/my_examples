@@ -37,6 +37,114 @@ func TestBasicArrayOperations(t *testing.T) {
 	})
 }
 
+// go test -v -run TestAppend
+func TestAppend(t *testing.T) {
+	Convey("TestAppend", t, func() {
+		Convey("basic usage", func() {
+			slices := make([]int, 0, 10)
+
+			So(slices, ShouldHaveLength, 0)
+			So(cap(slices), ShouldEqual, 10)
+
+			slices = append(slices, 1, 2, 3, 4, 5, 6)
+
+			So(len(slices), ShouldEqual, 6)
+			So(cap(slices), ShouldEqual, 10)
+
+			So(slices, ShouldResemble, []int{1, 2, 3, 4, 5, 6})
+
+			// 奇怪的语法
+			// 0:2 是指从 0 到 1, 也就是 slices[0], slices[1]
+			So(slices[0:2], ShouldResemble, []int{1, 2})
+			// :2 是指从 第一个元素 到 1, 也就是 slices[0], slices[1]
+			So(slices[:2], ShouldResemble, []int{1, 2})
+			// 3:6 是指从 3 到 5, 也就是 slices[3], slices[4], slices[5]
+			So(slices[3:6], ShouldResemble, []int{4, 5, 6})
+			// 3:6 是指从 3 到 最后一个元素, 也就是 slices[3], slices[4], slices[5]
+			So(slices[3:], ShouldResemble, []int{4, 5, 6})
+
+			So(slices[0], ShouldEqual, 1)
+			So(slices[1], ShouldEqual, 2)
+
+			So(slices[1], ShouldEqual, 2)
+
+			// 现在我要删除第2个元素, slices[2] = 3
+			i := 2
+			// :i 代表从开始到i, i+1: 代表从i+1到最后
+			slicesNew := append(slices[:i], slices[i+1:]...)
+
+			So(slicesNew, ShouldResemble, []int{1, 2, 4, 5, 6})
+			So(slices, ShouldResemble, []int{1, 2, 4, 5, 6, 6})
+		})
+	})
+}
+
+// 参考自 https://stackoverflow.com/a/29006008
+func delFromEnd(source []int, dataToDelete int) []int {
+	for i := len(source) - 1; i >= 0; i-- {
+		data := source[i]
+
+		if dataToDelete == data {
+			// See https://github.com/golang/go/wiki/SliceTricks#delete
+			source = append(source[:i], source[i+1:]...)
+		}
+	}
+
+	return source
+}
+
+func del(source []int, dataToDelete int) []int {
+	var position int
+
+	for _, data := range source {
+		if data == dataToDelete {
+			// See https://github.com/golang/go/wiki/SliceTricks#delete
+			source = append(source[:position], source[position+1:]...)
+
+			if position > 0 {
+				position = position - 1
+			}
+		}
+
+		position++
+	}
+
+	return source
+}
+
+// go test -v -run TestDelete
+func TestDelete(t *testing.T) {
+	Convey("TestDelFromEnd", t, func() {
+		Convey("basic usage", func() {
+			slices := make([]int, 0, 10)
+
+			So(slices, ShouldHaveLength, 0)
+			So(cap(slices), ShouldEqual, 10)
+
+			slices = append(slices, 1, 2, 3, 4, 5, 6)
+
+			So(delFromEnd(slices, 4), ShouldResemble, []int{1, 2, 3, 5, 6})
+
+			// 这个为什么 slices 为什么会变了?
+			So(slices, ShouldResemble, []int{1, 2, 3, 5, 6, 6})
+		})
+	})
+
+	Convey("TestDel", t, func() {
+		Convey("basic usage", func() {
+			slices := make([]int, 0, 10)
+
+			So(slices, ShouldHaveLength, 0)
+			So(cap(slices), ShouldEqual, 10)
+
+			slices = append(slices, 1, 2, 3, 4, 5, 6)
+
+			So(del(slices, 4), ShouldResemble, []int{1, 2, 3, 5, 6})
+			So(slices, ShouldResemble, []int{1, 2, 3, 5, 6, 6})
+		})
+	})
+}
+
 // go test -v -run TestSlice
 func TestSlice(t *testing.T) {
 	Convey("TestSlice", t, func() {
