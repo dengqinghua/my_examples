@@ -131,9 +131,9 @@ func TestConstructors(t *testing.T) {
 
 // * 为 poiter to value of type Department, 获取到指针
 func reallyAddCount(department *Department) {
-	department.HeadCount += 1
+	department.HeadCount++
 }
 
 func addCount(department Department) {
-	department.HeadCount += 1
+	department.HeadCount++
 }
