@@ -21,7 +21,9 @@ func TestSetImplement(t *testing.T) {
 		Convey("it should set", func() {
 			names["ds"] = true
 			_, ok := names["ds"]
+			value := names["ds"] // 也可以不用检查是否ok
 
+			So(value, ShouldEqual, true)
 			So(ok, ShouldBeTrue)
 		})
 	})
