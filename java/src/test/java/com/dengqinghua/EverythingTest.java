@@ -1,6 +1,7 @@
 package com.dengqinghua;
 
 import com.dengqinghua.concurrency.LockObject;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -148,13 +149,12 @@ public class EverythingTest {
         assertThat(Integer.toBinaryString(-1).length(), is(32));
     }
 
-    @Test public void testInheritedMethods () throws Exception {
+    @Ignore @Test public void testInheritedMethods () throws Exception {
         LockObject object = new Inherited();
 
         // 在这里虽然 object 被 cast 成了 LockObject
         // 但是 object 的方法依旧是 Inherited 的方法
         object.lockAndSleep();
-
 
         int i = 1 << 2;
         // 100

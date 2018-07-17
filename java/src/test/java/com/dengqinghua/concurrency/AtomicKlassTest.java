@@ -1,5 +1,6 @@
 package com.dengqinghua.concurrency;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -62,7 +63,7 @@ public class AtomicKlassTest {
         assertThat(object.getI(), equalTo(1000));
     }
 
-    @Test public void testWait() throws Exception {
+    @Ignore @Test public void testWait() throws Exception {
         Thread thread = new Thread(() -> {
             System.out.println("==== in wait thread ====");
 

@@ -56,7 +56,9 @@ public class SqlRunnerTest {
                 new Product(1026, 3),
         };
 
-        System.out.println(ForkJoinPool.getCommonPoolParallelism());
+        database = new Database();
+        database.products = products;
+        database.sellers  = sellers;
     }
 
     @Test public void run() throws Exception {

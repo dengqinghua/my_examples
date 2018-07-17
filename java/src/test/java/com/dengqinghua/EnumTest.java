@@ -126,7 +126,7 @@ public class EnumTest {
     }
 
     @Test public void testSay() throws Exception {
-        assertThat(Arrays.asList(AEnum.values()), contains(AEnum.DS, AEnum.SN, AEnum.WJJ));
+        assertThat(Arrays.asList(AEnum.values()), contains(AEnum.DS, AEnum.SN, AEnum.WJJ, AEnum.DQH));
         assertThat(AEnum.DS.say("Yeah!"), is("DSGV587! Yeah!"));
         assertThat(AEnum.SN.say("Yeah!"), is("SNV587! Yeah!"));
 
