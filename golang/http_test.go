@@ -33,7 +33,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	v587 := r.URL.Query().Get("dsg")
 	lang := r.URL.Query()["lang"]
 
-	fmt.Println(r.URL.Query())
+	// fmt.Println(r.URL.Query())
 	fmt.Fprintln(w, "Hello, client: dsg-"+v587+" lang-"+strings.Join(lang, ","))
 }
 
@@ -42,7 +42,7 @@ func TestGetMockServer(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(handler))
 	defer ts.Close()
 
-	Convey("HTTP Mock Server", t, func() {
+	Convey("HTTP Mock Server Should Receive Params dsg and lang", t, func() {
 		baseURL, _ := url.Parse(ts.URL)
 
 		params := url.Values{
@@ -52,7 +52,7 @@ func TestGetMockServer(t *testing.T) {
 
 		baseURL.RawQuery = params.Encode()
 
-		fmt.Println(baseURL.RawQuery)
+		// fmt.Println(baseURL.RawQuery)
 
 		res, err := http.Get(baseURL.String())
 		if err != nil {
