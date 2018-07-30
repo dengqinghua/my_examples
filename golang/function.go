@@ -9,12 +9,15 @@ func addShortCut(a, b int) int {
 	return a + b
 }
 
-// Fixme: 什么时候会需要这个bool?
-func dsg(name string) (bool, string) {
+// FIXME: 什么时候会需要这个bool?
+// 解答: 有时候不需要知道错误是什么, 所以采用的 bool, 告诉
+//  我成功还是失败, 其他的我不care
+// 如果说需要错误原因的话, 则需要用errors; 可以使用 errors.New() 方法
+func dsg(name string) (string, bool) {
 	if name == "ds" {
-		return true, "dsgv587"
+		return "dsgv587", true
 	} else {
-		return false, "Get Out"
+		return "", false
 	}
 }
 
@@ -27,4 +30,14 @@ func makeFunc(a, b int) int {
 	var f firstClassFunction
 
 	return f(1, 2)
+}
+
+func sum(allValues ...int) int {
+	var total int
+
+	for _, n := range allValues {
+		total += n
+	}
+
+	return total
 }
