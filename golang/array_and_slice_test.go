@@ -82,9 +82,7 @@ func TestAppend(t *testing.T) {
 // 参考自 https://stackoverflow.com/a/29006008
 func delFromEnd(source []int, dataToDelete int) []int {
 	for i := len(source) - 1; i >= 0; i-- {
-		data := source[i]
-
-		if dataToDelete == data {
+		if dataToDelete == source[i] {
 			// See https://github.com/golang/go/wiki/SliceTricks#delete
 			source = append(source[:i], source[i+1:]...)
 		}
@@ -145,6 +143,38 @@ func TestDelete(t *testing.T) {
 	})
 }
 
+// go test -v -run TestNilSlice
+func TestNilSlice(t *testing.T) {
+	Convey("TestNilSlice", t, func() {
+		Convey("use make not nil", func() {
+			slices := make([]int, 0)
+
+			So(slices == nil, ShouldBeFalse)
+		})
+
+		Convey("use int(nil) is nil", func() {
+			slices := []int(nil)
+
+			So(slices == nil, ShouldBeTrue)
+
+			var s []int
+			So(s == nil, ShouldBeTrue)
+
+			// 设置为了nil, 注意下面的range不会报错. 不需要解决 Java 中的 NPE 问题
+			s = nil
+
+			for i := range s {
+				// Never go here
+				So(i, ShouldBeNil)
+			}
+
+			s = []int{}
+			So(s == nil, ShouldBeFalse)
+
+		})
+	})
+}
+
 // go test -v -run TestSlice
 func TestSlice(t *testing.T) {
 	Convey("TestSlice", t, func() {
@@ -163,7 +193,6 @@ func TestSlice(t *testing.T) {
 
 		slices := make([]int, 0, 10)
 
-		// testify乱入... 貌似 goblin 不支持测试 Panics ...
 		// 直接赋值是不行的, 因为没有预分配 len
 		So(func() { slices[4] = 122 }, ShouldPanic)
 

@@ -5,6 +5,18 @@ import (
 	"testing"
 )
 
+type base struct {
+	v int
+}
+
+type Tree struct {
+	// embeded struct, 我们有了 anonymous field: v
+	base
+	// 这里不能写成 left, right Tree
+	// 但是可以为 *Tree
+	left, right *Tree
+}
+
 // go test -v -run TestSetImplement
 // Set的简单实现 https://stackoverflow.com/a/34020023
 func TestSetImplement(t *testing.T) {
@@ -32,9 +44,30 @@ func TestSetImplement(t *testing.T) {
 // go test -v -run TestBasicMap
 func TestBasicMap(t *testing.T) {
 	Convey("TestBasicMap", t, func() {
+		Convey("test nil", func() {
+			Convey("when use make", func() {
+				Convey("It should not equal nil", func() {
+					oneMap := make(map[string]int)
+					So(oneMap == nil, ShouldBeFalse)
+				})
+			})
+
+			Convey("when not use make", func() {
+				Convey("It should equal nil", func() {
+					var oneMap map[string]int
+					So(oneMap == nil, ShouldBeTrue)
+
+					// 直接赋值是不允许的, 因为是nil
+					So(func() { oneMap["ds"] = 1024 }, ShouldPanic)
+				})
+			})
+		})
+
 		Convey("get, put", func() {
 			Convey("should get right", func() {
 				oneMap := make(map[string]int)
+
+				So(oneMap, ShouldNotBeNil)
 
 				oneMap["dsgv"] = 587
 
