@@ -22,12 +22,17 @@ type Tree struct {
 func TestSetImplement(t *testing.T) {
 	Convey("init Set", t, func() {
 		names := map[string]bool{}
+		abc := map[string]string{}
 
 		Convey("it should get", func() {
 			value, ok := names["ds"]
 
 			So(value, ShouldEqual, false)
 			So(ok, ShouldBeFalse)
+
+			v2, ok := abc["ds"]
+			So(ok, ShouldBeFalse)
+			So(v2, ShouldEqual, "")
 		})
 
 		Convey("it should set", func() {
