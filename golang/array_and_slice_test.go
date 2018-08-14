@@ -220,3 +220,36 @@ func TestSlice(t *testing.T) {
 		})
 	})
 }
+
+// go test -v -run TestPassParams
+func TestPassParams(t *testing.T) {
+	slice := []int{1, 2, 3}
+
+	Convey("TestPassParams", t, func() {
+		Convey("Slice", func() {
+			changeSlice(slice)
+
+			So(slice, ShouldResemble, []int{100, 2, 3})
+		})
+
+		Convey("Struct", func() {
+			sStruct := s{100, 200}
+			changeStruct(sStruct)
+
+			So(sStruct.a, ShouldEqual, 100)
+		})
+	})
+}
+
+func changeSlice(slice []int) {
+	slice[0] = 100
+}
+
+func changeStruct(sStruct s) {
+	sStruct.a = 1
+}
+
+type s struct {
+	a int
+	b int
+}
