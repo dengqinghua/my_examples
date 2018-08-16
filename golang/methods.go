@@ -26,3 +26,13 @@ func (path Path) Distance() float64 {
 
 	return sum
 }
+
+func (p *Point) scaleBy(factor float64) {
+	p.X *= factor
+	p.Y *= factor
+}
+
+func (p Point) scaleByV2(factor float64) {
+	p.X *= factor
+	p.Y *= factor
+}

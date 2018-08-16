@@ -24,7 +24,7 @@ func TestDeferInReverseOrder(t *testing.T) {
 
 			v, _ := a["ds"]
 
-			So(v != "", ShouldBeTrue)
+			So(v == "", ShouldBeTrue)
 		})
 	})
 }

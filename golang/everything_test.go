@@ -4,6 +4,7 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 	"os"
 	"strconv"
+	"strings"
 	"testing"
 )
 
@@ -110,4 +111,15 @@ func TestParseDefault(t *testing.T) {
 			So(c, ShouldEqual, 0.0)
 		})
 	})
+}
+
+// go test -v -run TestMultiParams
+func TestMultiParams(t *testing.T) {
+	Convey("TestMultiParams", t, func() {
+		So(combine("1", "2", "3"), ShouldEqual, "1,2,3")
+	})
+}
+
+func combine(params ...string) string {
+	return strings.Join(params, ",")
 }

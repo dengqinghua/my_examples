@@ -221,6 +221,10 @@ func TestSlice(t *testing.T) {
 	})
 }
 
+func changeSlice(slice []int) {
+	slice[0] = 100
+}
+
 // go test -v -run TestPassParams
 func TestPassParams(t *testing.T) {
 	slice := []int{1, 2, 3}
@@ -239,10 +243,6 @@ func TestPassParams(t *testing.T) {
 			So(sStruct.a, ShouldEqual, 100)
 		})
 	})
-}
-
-func changeSlice(slice []int) {
-	slice[0] = 100
 }
 
 func changeStruct(sStruct s) {
