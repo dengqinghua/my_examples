@@ -1,12 +1,18 @@
 package golang
 
 import (
+	"image/color"
 	"math"
 )
 
 type Point struct {
 	X float64
 	Y float64
+}
+
+type ColoredPoint struct {
+	Point
+	Color color.RGBA
 }
 
 type Path []Point

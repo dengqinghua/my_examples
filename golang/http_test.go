@@ -3,6 +3,7 @@ package golang
 import (
 	"fmt"
 	. "github.com/smartystreets/goconvey/convey"
+	"gopkg.in/h2non/gock.v1"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -67,5 +68,27 @@ func TestGetMockServer(t *testing.T) {
 		}
 
 		So(strings.TrimSpace(string(greeting)), ShouldEqual, "Hello, client: dsg-v587 lang-ruby,java,golang")
+	})
+}
+
+// go test -v -run TestGock
+func TestGock(t *testing.T) {
+	defer gock.Off()
+
+	gock.New("http://server.com").
+		Get("/bar").
+		Reply(200).
+		JSON(map[string]string{"foo": "bar"})
+
+	Convey("MockGock", t, func() {
+		res, err := http.Get("http://server.com/bar")
+
+		So(err, ShouldBeNil)
+		So(res.StatusCode, ShouldEqual, 200)
+
+		body, _ := ioutil.ReadAll(res.Body)
+		So(string(body)[:], ShouldEqual, "{\"foo\":\"bar\"}\n")
+		So(string(body)[:], ShouldEqual, `{"foo":"bar"}
+`)
 	})
 }
