@@ -73,14 +73,30 @@ func TestGetMockServer(t *testing.T) {
 
 // go test -v -run TestGock
 func TestGock(t *testing.T) {
-	defer gock.Off()
+	Convey("More Complicated Cases", t, func() {
+		defer gock.Off()
 
-	gock.New("http://server.com").
-		Get("/bar").
-		Reply(200).
-		JSON(map[string]string{"foo": "bar"})
+		gock.New("http://abc.com").
+			Post("/bar").
+			Reply(200).
+			JSON(map[string]string{"foo": "bbb"})
+
+		gock.New("http://abc.com").
+			Post("/bar").
+			Reply(200).
+			JSON(map[string]string{"foo": "bbb"})
+
+		res := httpPostRequest("http://abc.com/bar")
+		So(res, ShouldEqual, "{\"foo\":\"bbb\"}\n")
+	})
 
 	Convey("MockGock", t, func() {
+		defer gock.Off()
+
+		gock.New("http://server.com").
+			Get("/bar").
+			Reply(200).
+			JSON(map[string]string{"foo": "bar"})
 		res, err := http.Get("http://server.com/bar")
 
 		So(err, ShouldBeNil)
