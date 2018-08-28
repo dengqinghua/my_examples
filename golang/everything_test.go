@@ -1,6 +1,7 @@
 package golang
 
 import (
+	"fmt"
 	. "github.com/smartystreets/goconvey/convey"
 	"os"
 	"strconv"
@@ -66,6 +67,15 @@ func TestString(t *testing.T) {
 
 			So(len(v), ShouldBeGreaterThan, 0)
 			So(v[len(v)-1], ShouldEqual, 49)
+		})
+
+		Convey("string take args like code point", func() {
+			So(string(50), ShouldEqual, "2")
+		})
+
+		Convey("right way to stringify numbers: use fmt.Sprint", func() {
+			So(fmt.Sprint(100000), ShouldEqual, "100000")
+			So(fmt.Sprint(50), ShouldEqual, "50")
 		})
 	})
 }
