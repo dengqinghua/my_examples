@@ -42,7 +42,6 @@ func TestFunctions(t *testing.T) {
 				// iota 的用法来着...
 				So(A, ShouldResemble, 0)
 				So(B, ShouldResemble, 1)
-
 			})
 		})
 

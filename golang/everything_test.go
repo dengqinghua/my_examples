@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 )
 
 type mm struct {
@@ -17,6 +18,23 @@ type mm struct {
 type nn struct {
 	mm
 	c int
+}
+
+type AttrGetter interface {
+	getAttr() int
+}
+
+func (*mm) getAttr() int {
+	return a
+}
+
+func TestInterface(t *testing.T) {
+	Convey("TestInterface", t, func() {
+		m := mm{}
+
+		// 这里不能用 var _ AttrGetter = m
+		var _ AttrGetter = &m
+	})
 }
 
 // go test -v -run TestNested
@@ -127,6 +145,13 @@ func TestParseDefault(t *testing.T) {
 func TestMultiParams(t *testing.T) {
 	Convey("TestMultiParams", t, func() {
 		So(combine("1", "2", "3"), ShouldEqual, "1,2,3")
+	})
+}
+
+// go test -v -run TestTime
+func TestTime(t *testing.T) {
+	Convey("TestTime", t, func() {
+		So(time.Sunday, ShouldResemble, time.Weekday(0))
 	})
 }
 
