@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// go run concurrency/goroutines/clock/main.go
 func main() {
 	listener, err := net.Listen("tcp", "localhost:8000")
 
