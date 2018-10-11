@@ -30,7 +30,9 @@ func main() {
 	mustCopy(conn, os.Stdin)
 
 	conn.Close()
+
 	// synchronization
+	// 实际上都走不到这条语句...
 	<-done // 等待 goroutineFunc 执行完了之后, 才退出; 这个类似于 Actor 中的 wait
 }
 

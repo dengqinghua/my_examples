@@ -31,5 +31,3 @@ func newDepartmentVersionPointer(name string, headCount int) *Department {
 		HeadCount: headCount,
 	}
 }
-
-// 内部有new 方法, 但是不推荐使用. 见
