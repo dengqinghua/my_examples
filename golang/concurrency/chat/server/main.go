@@ -32,6 +32,11 @@ func main() {
 	}
 }
 
+// 一些衍生的功能思考
+//	1. 连接超时: 需要设置一个 time.Tick, 每隔一段时间检查一下cli的最后一条消息的发送时间
+//	2.聊天室的人数限制, 我们可以设置一个 buffered client, 即
+//		entering = make(chan client, 10) // 限制一次只能进来10个人
+
 var (
 	entering = make(chan client)
 	leaving  = make(chan client)
