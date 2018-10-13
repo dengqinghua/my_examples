@@ -6,6 +6,7 @@ import (
 	"log"
 	"math/rand"
 	"net"
+	"time"
 )
 
 // 假如有 N 个 client, 则会有 2*N + 1 个 goroutine
@@ -37,10 +38,14 @@ func main() {
 //	2.聊天室的人数限制, 我们可以设置一个 buffered client, 即
 //		entering = make(chan client, 10) // 限制一次只能进来10个人
 
+const limitationCount = 2
+const mostIdleTime = 10 * time.Second
+
 var (
-	entering = make(chan client)
-	leaving  = make(chan client)
-	messages = make(chan string)
+	entering    = make(chan client)
+	leaving     = make(chan client)
+	limitations = make(chan struct{}, limitationCount)
+	messages    = make(chan string)
 )
 
 // broardcast 包括两部分
@@ -53,7 +58,6 @@ func broardcast() {
 		select {
 		case message := <-messages:
 			for cli := range clients {
-				// 需要给 cli 发送 string 的消息, 所以设置 cli 为 chan<- string
 				cli.ch <- message
 			}
 		case cli := <-entering:
@@ -63,7 +67,6 @@ func broardcast() {
 		// 估计是为了维护 clients 这个 map 吧!
 		case cli := <-leaving:
 			delete(clients, cli)
-			cli.closeCh()
 		}
 	}
 }
@@ -71,17 +74,51 @@ func broardcast() {
 func interactiveWithCli(conn net.Conn, cli client) {
 	input := bufio.NewScanner(conn)
 
+	// 设置超时
+	go func() {
+		tick := time.Tick(mostIdleTime)
+
+		for {
+			select {
+			case <-tick:
+				now := time.Now()
+				if now.Sub(cli.lastUpdatedAt) > mostIdleTime {
+					fmt.Fprintf(conn, "connection is not used in %d seconds\n", mostIdleTime/1000000000)
+					fmt.Fprintf(conn, "now: %v\nlastUpdatedAt: %v\n", now, cli.lastUpdatedAt)
+					conn.Close()
+				}
+			}
+		}
+	}()
+
 	for input.Scan() {
 		messages <- cli.name() + ": " + input.Text()
+		cli.lastUpdatedAt = time.Now()
 	}
 }
 
 func clientLeft(cli client) {
 	leaving <- cli
 	messages <- cli.name() + " has left"
+	cli.closeCh()
 }
 
 func handleConn(conn net.Conn) {
+	enteredCount := len(limitations)
+	fmt.Fprintf(conn, "Total People: %d\n", enteredCount)
+
+	// 人数限制
+	if enteredCount >= limitationCount {
+		fmt.Fprintln(conn, "Sorry, it is overflowed")
+		conn.Close()
+	}
+
+	limitations <- struct{}{}
+	defer func() {
+		<-limitations
+		fmt.Fprintf(conn, "Total People: %d\n", len(limitations))
+	}()
+
 	cli := newClient(getClientName(conn), conn.RemoteAddr().String())
 
 	informNewClientArrival(cli)
@@ -97,10 +134,11 @@ func handleConn(conn net.Conn) {
 }
 
 type client struct {
-	rawName string
-	ch      chan string
-	addr    string
-	color   string
+	rawName       string
+	ch            chan string
+	addr          string
+	color         string
+	lastUpdatedAt time.Time
 }
 
 func (c *client) setName(name string) {
@@ -113,10 +151,11 @@ func (c *client) name() string {
 
 func newClient(name string, addr string) client {
 	return client{
-		addr:    addr,
-		rawName: name,
-		ch:      make(chan string),
-		color:   colors[rand.Intn(len(colors))],
+		addr:          addr,
+		rawName:       name,
+		ch:            make(chan string),
+		color:         colors[rand.Intn(len(colors))],
+		lastUpdatedAt: time.Now(),
 	}
 }
 
