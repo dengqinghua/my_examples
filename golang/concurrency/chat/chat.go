@@ -15,4 +15,4 @@ package chat
 //	如果新的 client 进入, 则 server 记录该 client
 //	如果 client 断开连接, 则 server 删除该 client
 
-// 等待消息则使用 select
+//	连接超时处理: 当连接一直保持了 10s, 但是客户点却没有发任何消息, 则将连接关闭

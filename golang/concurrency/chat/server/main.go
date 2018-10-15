@@ -33,13 +33,12 @@ func main() {
 	}
 }
 
-// 一些衍生的功能思考
-//	1. 连接超时: 需要设置一个 time.Tick, 每隔一段时间检查一下cli的最后一条消息的发送时间
-//	2.聊天室的人数限制, 我们可以设置一个 buffered client, 即
-//		entering = make(chan client, 10) // 限制一次只能进来10个人
-
-const limitationCount = 2
-const mostIdleTime = 10 * time.Second
+const (
+	// limitationCount 聊天室的人数限制
+	limitationCount = 2
+	// 连接保持的最长空闲时间
+	mostIdleTime = 10 * time.Second
+)
 
 var (
 	entering    = make(chan client)
@@ -74,7 +73,7 @@ func broardcast() {
 func interactiveWithCli(conn net.Conn, cli client) {
 	input := bufio.NewScanner(conn)
 
-	// 设置超时
+	// 设置超时 FIXME: 是否有更优的方案? 超时和交互耦合在一起了
 	go func() {
 		tick := time.Tick(mostIdleTime)
 

@@ -1,10 +1,33 @@
 package concurrency
 
 import (
+	"fmt"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 	"time"
 )
+
+// go test -v my_examples/golang/concurrency -run TestStrangeGoroutine -count 4 -cpu 4 -race
+func TestStrangeGoroutine(t *testing.T) {
+	Convey("run in goroutines", t, func() {
+		Convey("should run", func() {
+			// FIXME: 为什么我每次跑都是一样的?
+			// x = 0; y = 1
+
+			// 设置到 count 10000 次就可以了! 可以看到输出结果五花八门的
+			var x, y int
+			go func() {
+				y = 1
+				fmt.Printf("x: %v\n", x)
+			}()
+
+			go func() {
+				x = 1
+				fmt.Printf("y: %v\n", y)
+			}()
+		})
+	})
+}
 
 // go test -v my_examples/golang/concurrency -run TestRunProcess
 func TestRunProcess(t *testing.T) {
