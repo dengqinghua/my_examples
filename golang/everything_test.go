@@ -158,3 +158,31 @@ func TestTime(t *testing.T) {
 func combine(params ...string) string {
 	return strings.Join(params, ",")
 }
+
+// go test -v -run TestTakePreviousTen
+func TestTakePreviousTen(t *testing.T) {
+	Convey("TestTakePreviousTen", t, func() {
+		a := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1, 1, 1, 1, 1, 1, 1, 1}
+
+		So(a, ShouldHaveLength, 22)
+
+		m := a[:10]
+		So(m, ShouldHaveLength, 10)
+		So(m[9], ShouldEqual, 10)
+	})
+}
+
+// go test -v -run TestForBreak
+func TestForBreak(t *testing.T) {
+	Convey("TestForBreak", t, func() {
+		for {
+			Convey("This Should Print", func() {
+				So(1, ShouldEqual, 1)
+			})
+
+			break
+		}
+
+		So(2, ShouldEqual, 2)
+	})
+}

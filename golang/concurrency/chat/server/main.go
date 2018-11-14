@@ -37,7 +37,7 @@ const (
 	// limitationCount 聊天室的人数限制
 	limitationCount = 2
 	// 连接保持的最长空闲时间
-	mostIdleTime = 10 * time.Second
+	mostIdleTime = 1 * time.Minute
 )
 
 var (
