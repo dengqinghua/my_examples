@@ -107,6 +107,7 @@ func TestGoRoutineMemConsumed(t *testing.T) {
 			go operation()
 		}
 
+		// 使用 wg.Wait 是为了确保每一个 operation() 都执行了
 		wg.Wait()
 
 		after := memConsumed()
