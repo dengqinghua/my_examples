@@ -29,7 +29,7 @@ Golang
 ```shell
 git clone https://github.com/dengqinghua/my_examples.git
 cd golang
-go test
+go test ./...
 ```
 
 请通过test来看源码的实现
