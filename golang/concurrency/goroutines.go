@@ -29,11 +29,13 @@ var (
 	lock sync.Mutex
 )
 
-func dangerIncr() {
+func dangerIncr(wg *sync.WaitGroup) {
+	defer wg.Done()
 	N++
 }
 
-func safeIncr() {
+func safeIncr(wg *sync.WaitGroup) {
+	defer wg.Done()
 	lock.Lock()
 	defer lock.Unlock()
 

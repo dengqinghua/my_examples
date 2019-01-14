@@ -4,6 +4,7 @@ import (
 	"fmt"
 	. "github.com/smartystreets/goconvey/convey"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 	"testing"
@@ -34,6 +35,13 @@ func TestInterface(t *testing.T) {
 
 		// 这里不能用 var _ AttrGetter = m
 		var _ AttrGetter = &m
+	})
+}
+
+// go test -v -run TestGOMAXPROCS
+func TestGOMAXPROCS(t *testing.T) {
+	Convey("GOMAXPROCS", t, func() {
+		So(runtime.GOMAXPROCS(0), ShouldEqual, runtime.NumCPU())
 	})
 }
 

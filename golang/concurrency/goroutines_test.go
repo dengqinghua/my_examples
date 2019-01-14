@@ -6,7 +6,6 @@ import (
 	"runtime"
 	"sync"
 	"testing"
-	"time"
 )
 
 // go test -v my_examples/golang/concurrency -run TestStrangeGoroutine -count 4 -cpu 4 -race
@@ -44,23 +43,30 @@ func TestRunProcess(t *testing.T) {
 func TestRaceCondition(t *testing.T) {
 	Convey("incr 1000 times in goroutines", t, func() {
 		Convey("should less than 1000", func() {
-			for i := 0; i < 1000; i++ {
-				go dangerIncr()
+			times := 1000
+
+			var wg sync.WaitGroup
+
+			wg.Add(times)
+			for i := 0; i < times; i++ {
+				go dangerIncr(&wg)
 			}
 
-			time.Sleep(time.Millisecond * 100)
-			// 偶偶尔会报错
 			So(N, ShouldBeLessThanOrEqualTo, 1000)
 		})
 	})
 
 	Convey("incr 1000 times in goroutines with LOCK", t, func() {
 		Convey("should exactly equal 1000", func() {
+			var wg sync.WaitGroup
+
+			times := 1000
+			wg.Add(times)
 			for i := 0; i < 1000; i++ {
-				go safeIncr()
+				go safeIncr(&wg)
 			}
 
-			time.Sleep(time.Millisecond * 100)
+			wg.Wait()
 
 			So(M, ShouldEqual, 1000)
 		})
@@ -116,5 +122,23 @@ func TestGoRoutineMemConsumed(t *testing.T) {
 		fmt.Printf("\n  average goroutine: %.3fkb", result)
 		// 平均一个 goroutine 消耗的内存小于 3k
 		So(result, ShouldBeLessThan, 3)
+	})
+}
+
+// go test -v my_examples/golang/concurrency -run TestOnce
+func TestOnce(t *testing.T) {
+	Convey("It Should Be Called Only Once", t, func() {
+		var wg sync.WaitGroup
+		var once sync.Once
+
+		var m int
+		times := 1000
+		wg.Add(times)
+		for i := 0; i < times; i++ {
+			defer wg.Done()
+			once.Do(func() { m++ })
+		}
+
+		So(m, ShouldEqual, 1)
 	})
 }
