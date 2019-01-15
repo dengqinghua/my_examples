@@ -7,7 +7,6 @@ import (
 )
 
 // go test -v -run TestAvo
-// 将 Skiup
 func TestAvo(t *testing.T) {
 	Convey("test avo", t, func() {
 		TEXT("Add", NOSPLIT, "func(x, y uint64) uint64")
