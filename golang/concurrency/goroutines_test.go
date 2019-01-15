@@ -152,8 +152,8 @@ func TestBlockingChannel(t *testing.T) {
 		go func() {
 			// 这里 sleep 了一会儿, 是为了滞后执行
 			time.Sleep(1 * time.Millisecond)
-			// 如果注释掉 下面这一行, 则会报错 `all goroutines are asleep, deadlock'
 			stream <- 1
+			// 如果注释掉 下面这一行, 则会报错 `all goroutines are asleep, deadlock'
 		}()
 
 		// <-stream 为阻塞的 channel
@@ -169,5 +169,45 @@ func TestBlockingChannel(t *testing.T) {
 
 		_, ok = <-stream
 		So(ok, ShouldBeFalse)
+
+		// buffered goroutines
+		streamOther := make(chan interface{}, 2)
+
+		var wg sync.WaitGroup
+		go func() {
+			wg.Add(3)
+			for range streamOther {
+				wg.Done()
+				time.Sleep(1 * time.Millisecond)
+			}
+		}()
+
+		streamOther <- 1
+		streamOther <- 2
+		streamOther <- 3
+		wg.Wait()
+	})
+}
+
+// go test -v my_examples/golang/concurrency -run TestWierdCase
+func TestWierdCase(t *testing.T) {
+	Convey("WierdCase", t, func() {
+		num := 3
+		streamOther2 := make(chan interface{}, num)
+		var wg sync.WaitGroup
+		wg.Add(num)
+		go func() {
+			for i := 0; i < num; i++ {
+				wg.Done()
+				streamOther2 <- i
+			}
+
+			streamOther2 <- 1024
+		}()
+		wg.Wait()
+
+		for i := range streamOther2 {
+			So([]int{0, 1, 2, 3, 1024}, ShouldContain, i)
+		}
 	})
 }
