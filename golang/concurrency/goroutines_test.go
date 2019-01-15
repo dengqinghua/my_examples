@@ -6,6 +6,7 @@ import (
 	"runtime"
 	"sync"
 	"testing"
+	"time"
 )
 
 // go test -v my_examples/golang/concurrency -run TestStrangeGoroutine -count 4 -cpu 4 -race
@@ -140,5 +141,33 @@ func TestOnce(t *testing.T) {
 		}
 
 		So(m, ShouldEqual, 1)
+	})
+}
+
+// go test -v my_examples/golang/concurrency -run TestBlockingChannel
+func TestBlockingChannel(t *testing.T) {
+	Convey("channel is acting in a blocking way", t, func() {
+		stream := make(chan interface{})
+
+		go func() {
+			// 这里 sleep 了一会儿, 是为了滞后执行
+			time.Sleep(1 * time.Millisecond)
+			// 如果注释掉 下面这一行, 则会报错 `all goroutines are asleep, deadlock'
+			stream <- 1
+		}()
+
+		// <-stream 为阻塞的 channel
+		v, ok := <-stream
+		So(v, ShouldEqual, 1)
+		So(ok, ShouldBeTrue)
+
+		go func() {
+			// 这里 sleep 了一会儿, 是为了滞后执行
+			time.Sleep(1 * time.Millisecond)
+			close(stream)
+		}()
+
+		_, ok = <-stream
+		So(ok, ShouldBeFalse)
 	})
 }
