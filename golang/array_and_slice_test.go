@@ -2,6 +2,7 @@
 package golang
 
 import (
+	"fmt"
 	. "github.com/smartystreets/goconvey/convey"
 
 	// 这里是 $GOAPTH/src/testing
@@ -12,6 +13,59 @@ import (
 	// 参考: http://lucasfcosta.com/2017/02/07/Understanding-Go-Dependency-Management.html
 	"testing"
 )
+
+func extend(slice []int, element int) []int {
+	n := len(slice)
+	slice = slice[0 : n+1]
+	slice[n] = element
+	return slice
+}
+
+// go test -v -run TestSliceExtend
+func TestSliceExtend(t *testing.T) {
+	Convey("TestSliceExtend", t, func() {
+		var iBuffer [10]int
+		panicFunc := func() {
+			slice := iBuffer[0:0]
+			for i := 0; i < 20; i++ {
+				slice = extend(slice, i)
+				fmt.Println(slice)
+			}
+		}
+
+		So(panicFunc, ShouldPanic)
+
+		// 初始化长度是3, 容量是10
+		slice := make([]int, 3, 10)
+		slice[0] = 0
+		slice[1] = 1
+		slice[2] = 2
+
+		slice = append(slice, 3, 4, 5)
+		So(slice, ShouldHaveLength, 6)
+		So(cap(slice), ShouldEqual, 10)
+
+		slice = append(slice, slice...)
+		So(slice, ShouldHaveLength, 12)
+		So(cap(slice), ShouldEqual, 20) // 2倍的方式进行扩张
+
+		// ptr [0, 0, 0, 0]
+		// len 4
+		// cap 4
+		slice = make([]int, 4)
+		So(cap(slice), ShouldEqual, 4)
+		So(len(slice), ShouldEqual, 4)
+
+		// ptr [-, -, 0, 0]
+		// len 2
+		// cap 4
+		slice = slice[:2]
+
+		// 我理解其实这种方式的话, cap 是随着 slice 的过程动态变化的, 也是为什么叫做 slice 的原因吧
+		So(len(slice), ShouldEqual, 2)
+		So(cap(slice), ShouldEqual, 4)
+	})
+}
 
 // One way to think about arrays is as a sort of struct but with indexed rather than named fields: a fixed-size composite value.
 //

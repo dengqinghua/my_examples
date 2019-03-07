@@ -211,3 +211,30 @@ func TestWierdCase(t *testing.T) {
 		}
 	})
 }
+
+// go test -v my_examples/golang/concurrency -run TestLeak
+func TestLeak(t *testing.T) {
+	Convey("go routine leak", t, func() {
+		doWork := func(strings <-chan string) <-chan interface{} {
+			completed := make(chan interface{})
+
+			go func() {
+				defer close(completed)
+				defer fmt.Println("Work Exit")
+				for s := range strings {
+					fmt.Println(s)
+				}
+			}()
+
+			return completed
+		}
+
+		strings := make(chan string)
+		doWork(strings)
+
+		strings <- "dddddddd"
+
+		time.Sleep(1 * time.Second)
+		fmt.Println("Done")
+	})
+}
