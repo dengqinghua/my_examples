@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// go test -v my_examples/golang/graphql -run TestHa
+// go test -v github.com/dengqinghua/golang/graphql -run TestHa
 func TestHa(t *testing.T) {
 	Convey("test avo", t, func() {
 		So(Ha(), ShouldEqual, `{"data":{"hello":"world"}}`)

@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestJson
+// go test github.com/dengqinghua/golang/ -v -run TestJson
 func TestJson(t *testing.T) {
 	Convey("test json marshal", t, func() {
 		movie := Movie{

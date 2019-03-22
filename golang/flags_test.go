@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestFlags
+// go test github.com/dengqinghua/golang/ -v -run TestFlags
 func TestFlags(t *testing.T) {
 	SkipConvey("TestFlags", t, func() {
 		var conf = flag.String("c", "DefaultConfig", "config files")
@@ -20,7 +20,7 @@ func TestFlags(t *testing.T) {
 	})
 }
 
-// go test -v -run TestSpecialFlags -args -c "SpecailConfig"
+// go test github.com/dengqinghua/golang/ -v -run TestSpecialFlags -args -c "SpecailConfig"
 func TestSpecialFlags(t *testing.T) {
 	SkipConvey("TestFlags", t, func() {
 		var conf = flag.String("c", "DefaultConfig", "config files")

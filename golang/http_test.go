@@ -13,7 +13,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestGetBaiduContent
+// go test github.com/dengqinghua/golang/ -v -run TestGetBaiduContent
 func TestGetBaiduContent(t *testing.T) {
 	SkipConvey("TestGetBaiduContent", t, func() {
 		Convey("should return baidu content", func() {
@@ -38,7 +38,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Hello, client: dsg-"+v587+" lang-"+strings.Join(lang, ","))
 }
 
-// go test -v -run TestGetMockServer
+// go test github.com/dengqinghua/golang/ -v -run TestGetMockServer
 func TestGetMockServer(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(handler))
 	defer ts.Close()
@@ -71,7 +71,7 @@ func TestGetMockServer(t *testing.T) {
 	})
 }
 
-// go test -v -run TestGock
+// go test github.com/dengqinghua/golang/ -v -run TestGock
 func TestGock(t *testing.T) {
 	Convey("More Complicated Cases", t, func() {
 		defer gock.Off()

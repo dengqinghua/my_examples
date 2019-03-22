@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestDecrOneHeadCountInComposition
+// go test github.com/dengqinghua/golang/ -v -run TestDecrOneHeadCountInComposition
 func TestDecrOneHeadCountInComposition(t *testing.T) {
 	Convey("test Decr use Composition", t, func() {
 		Convey("should also decr", func() {

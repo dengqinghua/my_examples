@@ -25,7 +25,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestGetErrorInfo
+// go test github.com/dengqinghua/golang/ -v -run TestGetErrorInfo
 func TestGetErrorInfo(t *testing.T) {
 	Convey("test GetErrorInfo", t, func() {
 		Convey("should get number", func() {

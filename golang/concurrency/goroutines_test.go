@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// go test -v my_examples/golang/concurrency -run TestStrangeGoroutine -count 4 -cpu 4 -race
+// go test -v github.com/dengqinghua/golang/concurrency -run TestStrangeGoroutine -count 4 -cpu 4 -race
 func TestStrangeGoroutine(t *testing.T) {
 	Convey("run in goroutines", t, func() {
 		Convey("should run", func() {
@@ -31,7 +31,7 @@ func TestStrangeGoroutine(t *testing.T) {
 	})
 }
 
-// go test -v my_examples/golang/concurrency -run TestRunProcess
+// go test -v github.com/dengqinghua/golang/concurrency -run TestRunProcess
 func TestRunProcess(t *testing.T) {
 	Convey("run process in goroutines", t, func() {
 		Convey("should run", func() {
@@ -40,7 +40,7 @@ func TestRunProcess(t *testing.T) {
 	})
 }
 
-// go test -v my_examples/golang/concurrency -run TestRaceCondition
+// go test -v github.com/dengqinghua/golang/concurrency -run TestRaceCondition
 func TestRaceCondition(t *testing.T) {
 	Convey("incr 1000 times in goroutines", t, func() {
 		Convey("should less than 1000", func() {
@@ -74,14 +74,14 @@ func TestRaceCondition(t *testing.T) {
 	})
 }
 
-// go test -v my_examples/golang/concurrency -run TestGoRoutineMemConsumed -cpu 4
+// go test -v github.com/dengqinghua/golang/concurrency -run TestGoRoutineMemConsumed -cpu 4
 //
 //		Each OS thread has a fixed-size block of memory (often as large as 2MB) for its stack,
 // 	the work area where it saves the local variables of function calls that are in progress
 // 	or temporarily suspended while another function is called.
 // 	This fixed-size stack is simultaneously too much and too little.
 func TestGoRoutineMemConsumed(t *testing.T) {
-	Convey("GoRoutineMemConsumed", t, func() {
+	SkipConvey("GoRoutineMemConsumed", t, func() {
 		memConsumed := func() uint64 {
 			// goroutines are not garbage collected with the runtime’s ability
 			// so runtime.GC() is ok
@@ -126,7 +126,7 @@ func TestGoRoutineMemConsumed(t *testing.T) {
 	})
 }
 
-// go test -v my_examples/golang/concurrency -run TestOnce
+// go test -v github.com/dengqinghua/golang/concurrency -run TestOnce
 func TestOnce(t *testing.T) {
 	Convey("It Should Be Called Only Once", t, func() {
 		var wg sync.WaitGroup
@@ -144,7 +144,7 @@ func TestOnce(t *testing.T) {
 	})
 }
 
-// go test -v my_examples/golang/concurrency -run TestBlockingChannel
+// go test -v github.com/dengqinghua/golang/concurrency -run TestBlockingChannel
 func TestBlockingChannel(t *testing.T) {
 	Convey("channel is acting in a blocking way", t, func() {
 		stream := make(chan interface{})
@@ -189,9 +189,9 @@ func TestBlockingChannel(t *testing.T) {
 	})
 }
 
-// go test -v my_examples/golang/concurrency -run TestWierdCase
+// go test -v github.com/dengqinghua/golang/concurrency -run TestWierdCase
 func TestWierdCase(t *testing.T) {
-	Convey("WierdCase", t, func() {
+	SkipConvey("WierdCase", t, func() {
 		num := 3
 		streamOther2 := make(chan interface{}, num)
 		var wg sync.WaitGroup
@@ -212,7 +212,7 @@ func TestWierdCase(t *testing.T) {
 	})
 }
 
-// go test -v my_examples/golang/concurrency -run TestLeak
+// go test -v github.com/dengqinghua/golang/concurrency -run TestLeak
 func TestLeak(t *testing.T) {
 	Convey("go routine leak", t, func() {
 		doWork := func(strings <-chan string) <-chan interface{} {

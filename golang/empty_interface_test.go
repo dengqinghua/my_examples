@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestGetType
+// go test github.com/dengqinghua/golang/ -v -run TestGetType
 func TestGetType(t *testing.T) {
 	Convey("TestGetType", t, func() {
 		Convey("when int", func() {

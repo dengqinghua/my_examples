@@ -8,7 +8,7 @@ import (
 	"unsafe"
 )
 
-// go test -v -run TestResourceReflect
+// go test github.com/dengqinghua/golang/ -v -run TestResourceReflect
 func TestResourceReflect(t *testing.T) {
 	Convey("TestResourceReflect", t, func() {
 		res1 := resource{}

@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestAvo
+// go test github.com/dengqinghua/golang/ github.com/dengqinghua/golang -v -run TestAvo
 func TestAvo(t *testing.T) {
 	Convey("test avo", t, func() {
 		TEXT("Add", NOSPLIT, "func(x, y uint64) uint64")

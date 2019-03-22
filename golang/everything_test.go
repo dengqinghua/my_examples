@@ -38,14 +38,14 @@ func TestInterface(t *testing.T) {
 	})
 }
 
-// go test -v -run TestGOMAXPROCS
+// go test github.com/dengqinghua/golang/ -v -run TestGOMAXPROCS
 func TestGOMAXPROCS(t *testing.T) {
 	Convey("GOMAXPROCS", t, func() {
 		So(runtime.GOMAXPROCS(0), ShouldEqual, runtime.NumCPU())
 	})
 }
 
-// go test -v -run TestNested
+// go test github.com/dengqinghua/golang/ -v -run TestNested
 func TestNested(t *testing.T) {
 	Convey("TestNested", t, func() {
 		m := mm{1, 2}
@@ -57,7 +57,7 @@ func TestNested(t *testing.T) {
 	})
 }
 
-// go test -v -run TestEmptyInterface
+// go test github.com/dengqinghua/golang/ -v -run TestEmptyInterface
 func TestEmptyInterface(t *testing.T) {
 	Convey("TestEmptyInterface", t, func() {
 		Convey("test equal", func() {
@@ -74,7 +74,7 @@ func TestEmptyInterface(t *testing.T) {
 	})
 }
 
-// go test -v -run TestSum
+// go test github.com/dengqinghua/golang/ -v -run TestSum
 func TestSum(t *testing.T) {
 	Convey("Numbers", t, func() {
 		// Passing Test
@@ -84,7 +84,7 @@ func TestSum(t *testing.T) {
 	})
 }
 
-// go test -v -run TestString
+// go test github.com/dengqinghua/golang/ -v -run TestString
 func TestString(t *testing.T) {
 	Convey("TestString", t, func() {
 		// Passing Test
@@ -107,7 +107,7 @@ func TestString(t *testing.T) {
 }
 
 // 传入的参数
-// go test -v -run TestOs -args 1000 1
+// go test github.com/dengqinghua/golang/ -v -run TestOs -args 1000 1
 // Args: TestOs 1000 1
 func TestOs(t *testing.T) {
 	Convey("Args Test", t, func() {
@@ -129,7 +129,7 @@ func parseOrDefault(str string, defaultVal int) int {
 	return b
 }
 
-// go test -v -run TestParseDefault
+// go test github.com/dengqinghua/golang/ -v -run TestParseDefault
 func TestParseDefault(t *testing.T) {
 	Convey("ParseDefault", t, func() {
 		Convey("parse with default", func() {
@@ -149,14 +149,14 @@ func TestParseDefault(t *testing.T) {
 	})
 }
 
-// go test -v -run TestMultiParams
+// go test github.com/dengqinghua/golang/ -v -run TestMultiParams
 func TestMultiParams(t *testing.T) {
 	Convey("TestMultiParams", t, func() {
 		So(combine("1", "2", "3"), ShouldEqual, "1,2,3")
 	})
 }
 
-// go test -v -run TestTime
+// go test github.com/dengqinghua/golang/ -v -run TestTime
 func TestTime(t *testing.T) {
 	Convey("TestTime", t, func() {
 		So(time.Sunday, ShouldResemble, time.Weekday(0))
@@ -167,7 +167,7 @@ func combine(params ...string) string {
 	return strings.Join(params, ",")
 }
 
-// go test -v -run TestTakePreviousTen
+// go test github.com/dengqinghua/golang/ -v -run TestTakePreviousTen
 func TestTakePreviousTen(t *testing.T) {
 	Convey("TestTakePreviousTen", t, func() {
 		a := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1, 1, 1, 1, 1, 1, 1, 1}
@@ -180,7 +180,7 @@ func TestTakePreviousTen(t *testing.T) {
 	})
 }
 
-// go test -v -run TestForBreak
+// go test github.com/dengqinghua/golang/ -v -run TestForBreak
 func TestForBreak(t *testing.T) {
 	Convey("TestForBreak", t, func() {
 		for {

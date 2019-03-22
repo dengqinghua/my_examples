@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestThirdRuleDefer
+// go test github.com/dengqinghua/golang/ -v -run TestThirdRuleDefer
 func TestThirdRuleDefer(t *testing.T) {
 	Convey("test the third defer rule", t, func() {
 		Convey("should return 2", func() {
@@ -15,7 +15,7 @@ func TestThirdRuleDefer(t *testing.T) {
 	})
 }
 
-// go test -v -run TestDeferInReverseOrder
+// go test github.com/dengqinghua/golang/ -v -run TestDeferInReverseOrder
 func TestDeferInReverseOrder(t *testing.T) {
 	Convey("test the inverse order rule", t, func() {
 		Convey("should print 4321", func() {

@@ -17,7 +17,7 @@ type Tree struct {
 	left, right *Tree
 }
 
-// go test -v -run TestSetImplement
+// go test github.com/dengqinghua/golang/ -v -run TestSetImplement
 // Set的简单实现 https://stackoverflow.com/a/34020023
 func TestSetImplement(t *testing.T) {
 	Convey("init Set", t, func() {
@@ -46,7 +46,7 @@ func TestSetImplement(t *testing.T) {
 	})
 }
 
-// go test -v -run TestBasicMap
+// go test github.com/dengqinghua/golang/ -v -run TestBasicMap
 func TestBasicMap(t *testing.T) {
 	Convey("TestBasicMap", t, func() {
 		Convey("test nil", func() {

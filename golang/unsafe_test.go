@@ -6,7 +6,7 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-// go test -v -run TestSizeOf
+// go test github.com/dengqinghua/golang/ -v -run TestSizeOf
 func TestSizeOf(t *testing.T) {
 	Convey("TestSizeOf", t, func() {
 		Convey("Should Return Size", func() {

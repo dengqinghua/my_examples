@@ -21,7 +21,7 @@ func extend(slice []int, element int) []int {
 	return slice
 }
 
-// go test -v -run TestSliceExtend
+// go test github.com/dengqinghua/golang/ -v -run TestSliceExtend
 func TestSliceExtend(t *testing.T) {
 	Convey("TestSliceExtend", t, func() {
 		var iBuffer [10]int
@@ -69,7 +69,7 @@ func TestSliceExtend(t *testing.T) {
 
 // One way to think about arrays is as a sort of struct but with indexed rather than named fields: a fixed-size composite value.
 //
-// go test -v -run TestBasicArrayOperations
+// go test github.com/dengqinghua/golang/ -v -run TestBasicArrayOperations
 func TestBasicArrayOperations(t *testing.T) {
 	Convey("init and iterate", t, func() {
 		Convey("should successfully init", func() {
@@ -91,7 +91,7 @@ func TestBasicArrayOperations(t *testing.T) {
 	})
 }
 
-// go test -v -run TestAppend
+// go test github.com/dengqinghua/golang/ -v -run TestAppend
 func TestAppend(t *testing.T) {
 	Convey("TestAppend", t, func() {
 		Convey("basic usage", func() {
@@ -164,7 +164,7 @@ func del(source []int, dataToDelete int) []int {
 	return source
 }
 
-// go test -v -run TestDelete
+// go test github.com/dengqinghua/golang/ -v -run TestDelete
 func TestDelete(t *testing.T) {
 	Convey("TestDelFromEnd", t, func() {
 		Convey("basic usage", func() {
@@ -197,7 +197,7 @@ func TestDelete(t *testing.T) {
 	})
 }
 
-// go test -v -run TestNilSlice
+// go test github.com/dengqinghua/golang/ -v -run TestNilSlice
 func TestNilSlice(t *testing.T) {
 	Convey("TestNilSlice", t, func() {
 		Convey("use make not nil", func() {
@@ -229,7 +229,7 @@ func TestNilSlice(t *testing.T) {
 	})
 }
 
-// go test -v -run TestSlice
+// go test github.com/dengqinghua/golang/ -v -run TestSlice
 func TestSlice(t *testing.T) {
 	Convey("TestSlice", t, func() {
 		Convey("len and cap", func() {
@@ -279,7 +279,7 @@ func changeSlice(slice []int) {
 	slice[0] = 100
 }
 
-// go test -v -run TestPassParams
+// go test github.com/dengqinghua/golang/ -v -run TestPassParams
 func TestPassParams(t *testing.T) {
 	slice := []int{1, 2, 3}
 

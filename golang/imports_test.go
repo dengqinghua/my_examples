@@ -10,7 +10,7 @@ import (
 
 type forTest int
 
-// go test -v -run TestImports
+// go test github.com/dengqinghua/golang/ -v -run TestImports
 func TestImports(t *testing.T) {
 	Convey("TestImports", t, func() {
 		Convey("should get current imports", func() {

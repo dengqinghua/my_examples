@@ -7,7 +7,7 @@ import (
 
 	// 解释为: "my_examples/golang" 目录是针对于 src 目录下的
 	// 真实的是加载了 $GOAPTH/src/my_examples/golang/*.go
-	"my_examples/golang"
+	"github.com/dengqinghua/golang"
 )
 
 func main() {

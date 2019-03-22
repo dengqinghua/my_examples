@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestExample
+// go test github.com/dengqinghua/golang/ -v -run TestExample
 func TestExample(t *testing.T) {
 	Convey("Numbers", t, func() {
 		// Passing Test

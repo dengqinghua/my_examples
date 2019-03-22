@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestSpec
+// go test github.com/dengqinghua/golang/ -v -run TestSpec
 func TestSpec(t *testing.T) {
 	Convey("Given some integer with a starting value", t, func() {
 		x := 1
@@ -21,7 +21,7 @@ func TestSpec(t *testing.T) {
 	})
 }
 
-// go test -v -run TestVariables
+// go test github.com/dengqinghua/golang/ -v -run TestVariables
 // 使用
 //
 //   var power int 初始化
@@ -61,7 +61,7 @@ func TestVariables(t *testing.T) {
 	})
 }
 
-// go test -run TestPointerAsReturnVal
+// go test github.com/dengqinghua/golang/ -run TestPointerAsReturnVal
 func TestPointerAsReturnVal(t *testing.T) {
 	Convey("TestPointerAsReturnVal", t, func() {
 		Convey("when func return *x", func() {
@@ -77,7 +77,7 @@ func TestPointerAsReturnVal(t *testing.T) {
 	})
 }
 
-// go test -run TestPointerAsStrangeIncr -v
+// go test github.com/dengqinghua/golang/ -run TestPointerAsStrangeIncr -v
 func TestPointerAsStrangeIncr(t *testing.T) {
 	Convey("TestPointerAsStrangeIncr", t, func() {
 		Convey("should change the value itself", func() {
@@ -125,7 +125,7 @@ func TestPointerAsStrangeIncr(t *testing.T) {
 	})
 }
 
-// go test -v -run TestNew
+// go test github.com/dengqinghua/golang/ -v -run TestNew
 // new用得比较少, 毕竟不太直观
 func TestNew(t *testing.T) {
 	Convey("new is return a Ptr", t, func() {

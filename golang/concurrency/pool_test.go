@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-// go test -v my_examples/golang/concurrency -run TestPool
+// go test -v github.com/dengqinghua/golang/concurrency -run TestPool
 func TestPool(t *testing.T) {
 	Convey("It Should Be Act Like a Pool", t, func() {
 		var numsCreated int

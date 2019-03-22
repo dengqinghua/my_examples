@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestStrings
+// go test github.com/dengqinghua/golang/ -v -run TestStrings
 func TestStrings(t *testing.T) {
 	Convey("It Should Prinit origin", t, func() {
 		const placeOfInterest = `⌘`

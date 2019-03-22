@@ -18,7 +18,7 @@ const (
 	Gsy human = "gaoshengyang"
 )
 
-// go test -v -run TestTypeUsage
+// go test github.com/dengqinghua/golang/ -v -run TestTypeUsage
 func TestTypeUsage(t *testing.T) {
 	Convey("TestTypeUsage", t, func() {
 		Convey("the Dqh type should be a boy", func() {
@@ -31,7 +31,7 @@ func TestTypeUsage(t *testing.T) {
 	})
 }
 
-// go test -v -run TestTypeConversionOperarion
+// go test github.com/dengqinghua/golang/ -v -run TestTypeConversionOperarion
 func TestTypeConversionOperarion(t *testing.T) {
 	Convey("TestTypeConversionOperarion", t, func() {
 		Convey("it should conversite type", func() {
@@ -56,7 +56,7 @@ var c = 2
 // TODO: package 的加载顺序是什么样的? 多个文件都有 init() 方法的时候, 选择什么样
 // 的加载方式?
 
-// go test -v -run TestStrangeInit
+// go test github.com/dengqinghua/golang/ -v -run TestStrangeInit
 func TestStrangeInit(t *testing.T) {
 	Convey("TestStrangeInit", t, func() {
 		Convey("it should get a's value to be 3", func() {

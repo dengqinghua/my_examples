@@ -11,7 +11,7 @@ import (
 // 三种, Golang 看起来只有 {} 这一种, 还有 if a := 1, a > 0 {} 中
 // 的 a 这种
 
-// go test -v -run TestStrangeScope
+// go test github.com/dengqinghua/golang/ -v -run TestStrangeScope
 func TestStrangeScope(t *testing.T) {
 	Convey("TestStrangeScope", t, func() {
 		Convey("it should get Captital One ", func() {

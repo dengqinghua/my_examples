@@ -23,7 +23,7 @@ func (db *DbMock) GetTwo(id int) (*Account, error) {
 	return args.Get(0).(*Account), args.Error(1)
 }
 
-// go test -v -run TestMock
+// go test github.com/dengqinghua/golang/ -v -run TestMock
 func TestMock(t *testing.T) {
 	Convey("Test Mock", t, func() {
 		Convey("when id is found", func() {
@@ -51,7 +51,7 @@ func TestMock(t *testing.T) {
 	})
 }
 
-// go test -v -run TestMockTwo
+// go test github.com/dengqinghua/golang/ -v -run TestMockTwo
 func TestMockTwo(t *testing.T) {
 	Convey("Test Mock", t, func() {
 		Convey("when id is not found", func() {

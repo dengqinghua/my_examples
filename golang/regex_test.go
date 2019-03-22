@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestYuanToFen
+// go test github.com/dengqinghua/golang/ -v -run TestYuanToFen
 func TestYuanToFen(t *testing.T) {
 	Convey("YuanToFen", t, func() {
 		So(yuanToFen("1.122222222222222"), ShouldBeTrue)

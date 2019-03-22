@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestStructures
+// go test github.com/dengqinghua/golang/ -v -run TestStructures
 func TestStructures(t *testing.T) {
 	Convey("init", t, func() {
 		Convey("assigin", func() {
@@ -31,7 +31,7 @@ func TestStructures(t *testing.T) {
 	})
 }
 
-// go test -v -run TestPointer
+// go test github.com/dengqinghua/golang/ -v -run TestPointer
 
 // 为什么要有指针?
 // 从功能上来说, Go传参的时候是传递的是 copies
@@ -79,7 +79,7 @@ func TestPointer(t *testing.T) {
 	})
 }
 
-// go test -v -run TestDecr
+// go test github.com/dengqinghua/golang/ -v -run TestDecr
 func TestDecr(t *testing.T) {
 	Convey("DecrOneHeadCount", t, func() {
 		// 用两种方式均可
@@ -96,7 +96,7 @@ func TestDecr(t *testing.T) {
 	})
 }
 
-// go test -v -run TestConstructors
+// go test github.com/dengqinghua/golang/ -v -run TestConstructors
 func TestConstructors(t *testing.T) {
 	Convey("newDepartment", t, func() {
 		// 用两种方式均可

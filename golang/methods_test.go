@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestMethods
+// go test github.com/dengqinghua/golang/ -v -run TestMethods
 func TestMethods(t *testing.T) {
 	Convey("TestMethods", t, func() {
 		Convey("point Distance", func() {

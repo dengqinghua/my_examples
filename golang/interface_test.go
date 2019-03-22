@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// go test -v -run TestMeasureArea
+// go test github.com/dengqinghua/golang/ -v -run TestMeasureArea
 func TestMeasureArea(t *testing.T) {
 	Convey("test measure area", t, func() {
 		rect := Rect{2, 10.5}

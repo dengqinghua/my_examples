@@ -14,7 +14,7 @@ const (
 
 var result interface{}
 
-// go test -v -run TestFunctions
+// go test github.com/dengqinghua/golang/ -v -run TestFunctions
 func TestFunctions(t *testing.T) {
 	Convey("TestFunctions", t, func() {
 		Convey("function Add", func() {
