@@ -13,10 +13,10 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class AVLTreeTest {
-    static List<Integer> dataList;
-    static Integer[] datas;
-    static AVLTree tree;
-    static Method methodHeight;
+    private List<Integer> dataList;
+    private Integer[] datas;
+    private AVLTree tree;
+    private Method methodHeight;
 
     @BeforeClass public static void setMethodAccessible() throws Exception {
         methodHeight = AVLTree.class.getDeclaredMethod("height", AVLTree.AVLNode.class);
