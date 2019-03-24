@@ -4,20 +4,32 @@ package com.dengqinghua.algorithms.practice;
  * 第一章 栈和队列
  */
 class PartOne {
+    /**
+     * 题目: ﻿实现一个特殊的栈，在实现栈的基本功能的基础上，再实现返回栈中最小元素的操作
+     *
+     * 要求:
+     *
+     * <pre>
+     * 1. pop、push、getMin操作的时间复杂度都是O(1)
+     * 2. 设计的栈类型可以使用现成的栈结构。
+     *
+     * 时间复杂度 O(1)
+     * 空间复杂度 O(n)
+     */
     static class OneStack {
-        Stack stack, minStack;
+        Stack<Integer> stack, minStack;
 
         OneStack() {
-            this.stack = new Stack();
+            stack = new Stack<>();
             // 这里需要用一个 minStack 来存储, 是因为 pop, push 的时候都需要方便得获取数据
-            this.minStack = new Stack();
+            minStack = new Stack<>();
         }
 
         int getMin() {
             return minStack.top();
         }
 
-        void push(int num) {
+        void push(Integer num) {
             stack.push(num);
             tryPushMinStack(num);
         }
@@ -33,7 +45,7 @@ class PartOne {
                 return;
             }
 
-            if (minStack.top() >= num) {
+            if (getMin() >= num) {
                 minStack.push(num);
             }
         }
@@ -48,23 +60,17 @@ class PartOne {
                 return;
             }
 
-            int min = minStack.pop();
-            if (num != min) {
-                minStack.push(min);
+            if (num == getMin()) {
+                minStack.pop();
             }
         }
 
-        public int pop() {
+        int pop() {
             int num = stack.pop();
 
             tryPopMinStack(num);
 
             return num;
-        }
-
-
-        public int length() {
-            return stack.length();
         }
     }
 }

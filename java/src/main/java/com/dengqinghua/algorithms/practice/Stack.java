@@ -8,21 +8,21 @@ import java.util.List;
  *
  * <p>使用 List 作为其存储结构
  */
-class Stack {
-    private List<Integer> storage;
+class Stack<T> {
+    private List<T> storage;
 
     Stack() {
         storage = new ArrayList<>();
     }
 
-    void push(int num) {
-        storage.add(num);
+    void push(T data) {
+        storage.add(data);
     }
 
     /**
      * @return 返回栈顶的元素
      */
-    int top() {
+    T top() {
         if (storage.isEmpty()) {
             throw new RuntimeException("stack has no value");
         }
@@ -34,7 +34,7 @@ class Stack {
         return storage.size() - 1;
     }
 
-    int pop() {
+    T pop() {
         if (storage.isEmpty()) {
             throw new RuntimeException("stack has no value");
         }

@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.*;
 
 public class StackTest {
     @Test public void allTest() throws Exception {
-        Stack stack = new Stack();
+        Stack<Integer> stack = new Stack<>();
         assertThat(stack.length(), is(0));
 
         stack.push(10);
