@@ -13,9 +13,11 @@ public class StackTest {
         stack.push(20);
         stack.push(30);
 
+        assertThat(stack.top(), is(30));
         assertThat(stack.length(), is(3));
 
         assertThat(stack.pop(), is(30));
+        assertThat(stack.top(), is(20));
         assertThat(stack.length(), is(2));
     }
 
