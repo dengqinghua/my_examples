@@ -13,9 +13,9 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class AVLTreeTest {
-    static List<Integer> dataList;
-    static Integer[] datas;
-    static AVLTree tree;
+    List<Integer> dataList;
+    Integer[] datas;
+    AVLTree tree;
     static Method methodHeight;
 
     @BeforeClass public static void setMethodAccessible() throws Exception {
