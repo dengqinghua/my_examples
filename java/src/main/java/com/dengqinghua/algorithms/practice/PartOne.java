@@ -21,21 +21,79 @@ class PartOne {
      *      1. 每次只能移动一个圆盘；
      *      2. 大盘不能叠在小盘上面。
      * </pre>
+     *
+     * 思路: 现将 N - 1 个盘 从 A 移到 B, 将最后一个盘 由 A 移到 C, 最后再将 N - 1 个盘由 B 移到 C
+     *
+     * <p>
+     * 个人觉得此题关键是: 递归的时候需要传递 from, to 和 mid 三个参数, 这三个参数在不同情况下会产生变化
+     * </p>
      */
     static class HanoiTower {
-        static void run() {
-            move(3, "A", "C", "B");
+        static int run(int num) {
+            return move(num, "A", "C", "B");
         }
 
-        static void move(int n, String from, String to, String mid) {
+        static int move(int n, String from, String to, String mid) {
             if (n == 1) {
                 System.out.printf("Move disk 1 from %s to %s\n", from, to);
-                return;
+                return 1;
             }
 
-            move(n - 1, from, mid, to);
+            int part1, part2, part3;
+
+            part1 = move(n - 1, from, mid, to);
+
             System.out.printf("Move disk %d from %s to %s\n", n, from, to);
-            move(n - 1, mid, to, from);
+            part2 = 1;
+
+            part3 = move(n - 1, mid, to, from);
+
+            return part1 + part2 + part3;
+        }
+
+        /**
+         * 现要求所有移动, 必须走中间, 并记录总的步数
+         *
+         * <pre>
+         * base:
+         *  N == 1
+         *
+         * reduce:
+         *   1. 将 N - 1 个盘 从 A 移动到 B, 再从 B 移动到 C
+         *   2. 将 最后一个盘 从 A 移动到 B
+         *   3. 将 N - 1 个盘 从 C 移到 B, 再 移动到 A
+         *   4. 将 最后一个盘 从 B 移动到 C
+         *   5. 将 N - 1 个盘 从 A 移动到 B, 再从 B 移动到 C
+         *
+         *   向下 reduce
+         * </pre>
+         *
+         */
+        static int runThroughMid(int num) {
+            return moveThroughMid(num, "A", "C", "B");
+        }
+
+        static int moveThroughMid(int n, String from, String to, String mid) {
+            int part1, part2, part3, part4, part5;
+
+            if (n == 1) {
+                System.out.printf("move disk 1 from %s, %s\n", from, to);
+                return 1;
+            }
+
+            part1 = moveThroughMid(n - 1, from, mid, to) + moveThroughMid(n - 1, mid, to, from);
+
+            System.out.printf("move disk %d from %s, %s\n", n, from, mid);
+            part2 = 1;
+
+            part3 = moveThroughMid(n - 1, to, mid, from) + moveThroughMid(n - 1, mid, from, to);
+
+            System.out.printf("move disk %d from %s, %s\n", n, mid, to);
+            part4 = 1;
+
+            part5 = moveThroughMid(n - 1, from, mid, to) + moveThroughMid(n - 1, mid, to, from);
+
+            return part1 + part2 + part3 + part4 + part5;
         }
     }
 

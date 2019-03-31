@@ -9,7 +9,12 @@ import static org.hamcrest.Matchers.nullValue;
 
 public class PartOneTest {
     @Test public void testHanoiTower() throws Exception {
-        PartOne.HanoiTower.run();
+        assertThat(PartOne.HanoiTower.run(3), is(7));
+    }
+
+    @Test public void testHanoiTowerPassThroughMid() throws Exception {
+        assertThat(PartOne.HanoiTower.runThroughMid(2), is(8));
+        assertThat(PartOne.HanoiTower.runThroughMid(3), is(50));
     }
 
     @Test public void testSortedStack() throws Exception {
