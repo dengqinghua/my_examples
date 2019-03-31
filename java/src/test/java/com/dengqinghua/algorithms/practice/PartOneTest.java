@@ -4,8 +4,61 @@ import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
 public class PartOneTest {
+    @Test public void testHanoiTower() throws Exception {
+        PartOne.HanoiTower.run();
+    }
+
+    @Test public void testSortedStack() throws Exception {
+        Stack<Integer> stack = new Stack<>();
+
+        stack.push(9);
+        stack.push(3);
+        stack.push(4);
+        stack.push(2);
+        stack.push(1);
+
+        PartOne.SortedStack.sort(stack);
+        assertThat(stack.pop(), is(9));
+        assertThat(stack.pop(), is(4));
+        assertThat(stack.pop(), is(3));
+        assertThat(stack.pop(), is(2));
+        assertThat(stack.pop(), is(1));
+    }
+
+    @Test public void testDCQueue() throws Exception {
+        PartOne.DCQueue queue = new PartOne.DCQueue();
+        PartOne.DCQueue.Pet pet;
+
+        assertThat(queue.isEmpty(), is(true));
+        assertThat(queue.isCatEmpty(), is(true));
+        assertThat(queue.isDogEmpty(), is(true));
+
+        assertThat(queue.pollAll(), is(nullValue()));
+        assertThat(queue.pollCat(), is(nullValue()));
+        assertThat(queue.pollDog(), is(nullValue()));
+
+        queue.add(new PartOne.DCQueue.Dog());
+        assertThat(queue.isEmpty(), is(false));
+        assertThat(queue.isCatEmpty(), is(true));
+        assertThat(queue.isDogEmpty(), is(false));
+
+        queue.add(new PartOne.DCQueue.Cat());
+        assertThat(queue.isEmpty(), is(false));
+        assertThat(queue.isCatEmpty(), is(false));
+        assertThat(queue.isDogEmpty(), is(false));
+
+        pet = queue.pollAll();
+        assertThat(pet.getType(), is("cat"));
+
+        PartOne.DCQueue.Dog dog = queue.pollDog();
+        assertThat(dog, is(notNullValue()));
+        assertThat(queue.pollDog(), is(nullValue()));
+    }
+
     @Test public void testReverseStack() throws Exception {
         Stack<Integer> stack = new Stack<>();
         stack.push(1);

@@ -1,13 +1,206 @@
 package com.dengqinghua.algorithms.practice;
 
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * 第一章 栈和队列
  */
 class PartOne {
+    /**
+     * <a href="https://en.wikipedia.org/wiki/Tower_of_Hanoi">汉诺塔</a>问题:
+     *
+     * <pre>
+     *  有三根杆子A，B，C. A杆上有 N 个 (N>1) 穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有圆盘移至 C 杆：
+     *      1. 每次只能移动一个圆盘；
+     *      2. 大盘不能叠在小盘上面。
+     * </pre>
+     */
+    static class HanoiTower {
+        static void run() {
+            move(3, "A", "C", "B");
+        }
+
+        static void move(int n, String from, String to, String mid) {
+            if (n == 1) {
+                System.out.printf("Move disk 1 from %s to %s\n", from, to);
+                return;
+            }
+
+            move(n - 1, from, mid, to);
+            System.out.printf("Move disk %d from %s to %s\n", n, from, to);
+            move(n - 1, mid, to, from);
+        }
+    }
+
+    /**
+     * 一个栈中元素的类型为整型, 现在想将该栈 从顶到底按从大到小 的顺序排序, 只许申请一个栈.
+     * 可以申请新的变量, 但不能申请额外的数据结构. 如何完成排序？
+     *
+     * <pre>
+     * 思路:
+     *      1. 申请的栈, 是按照 从顶到底按 `从小到大` 的顺序, 最后 pop 回原有的栈
+     *      2. 将数据来回 pop push 保证有序性
+     *      3. 记录 pop 的位置 i
+     * </pre>
+     */
+    static class SortedStack {
+        static void sort(Stack<Integer> stack) {
+            Stack<Integer> tmpStack = new Stack<>();
+
+            while(!stack.isEmpty()) {
+                sortStack(tmpStack, stack, stack.pop());
+            }
+
+            while (!tmpStack.isEmpty()) {
+                stack.push(tmpStack.pop());
+            }
+        }
+
+        private static void sortStack(Stack<Integer> source, Stack<Integer> tmp, Integer data) {
+            int i = 0, dataInStack = 0;
+            while (!source.isEmpty()) {
+                dataInStack = source.top();
+
+                if (dataInStack < data) {
+                    tmp.push(source.pop());
+                    i++;
+                } else {
+                    break;
+                }
+            }
+
+            source.push(data);
+
+            for (int j = i; j > 0; j--) {
+                source.push(tmp.pop());
+            }
+        }
+    }
+
+    /**
+     * 实现一个猫狗队列, 要求
+     *
+     * <pre>
+     *  1. add 将 cat 类或 dog 类的实例放入队列中；
+     *  2. pollAll 将队列中所有的实例按照进队列的先后顺序依次弹出
+     *  3. pollDog 将队列中 dog 类的实例按照进队列的先后顺序依次弹出
+     *  4. pollCat 将队列中 cat 类的实例按照进队列的先后顺序依次弹出
+     *  5. isEmpty 检查队列中是否还有 dog 或 cat 的实例
+     *  6. isDogEmpty 检查队列中是否有 dog 类的实例
+     *  7. isCatEmpty 检查队列中是否有 cat 类的实例。
+     * </pre>
+     *
+     * <p>
+     * 思路: 构造 DogQueue 和 CatQueue, 并添加 DCQueue, DogQueue 和 CatQueue 的 count, 作为时间戳
+     */
+    static class DCQueue {
+        int count;
+        Queue<PetEntry> dogQueue = new Queue<>();
+        Queue<PetEntry> catQueue = new Queue<>();
+
+        void add(Pet pet) {
+            count++;
+
+            if (Objects.equals(pet.getType(), "cat")) {
+                catQueue.add(new PetEntry(pet, count));
+            }
+
+            if (Objects.equals(pet.getType(), "dog")) {
+                dogQueue.add(new PetEntry(pet, count));
+            }
+        }
+
+        boolean isCatEmpty() {
+            return catQueue.isEmpty();
+        }
+
+        boolean isDogEmpty() {
+            return dogQueue.isEmpty();
+        }
+
+        boolean isEmpty() {
+            return catQueue.isEmpty() && dogQueue.isEmpty();
+        }
+
+        Dog pollDog() {
+            PetEntry entry = dogQueue.poll();
+            if (Objects.nonNull(entry)) {
+                return (Dog) entry.pet;
+            }
+
+            return null;
+        }
+
+        Cat pollCat() {
+            PetEntry entry = catQueue.poll();
+            if (Objects.nonNull(entry)) {
+                return (Cat) entry.pet;
+            }
+
+            return null;
+        }
+
+        Pet pollAll() {
+            PetEntry dogEntry = dogQueue.peekFirst();
+            PetEntry catEntry = catQueue.peekFirst();
+
+            if (Objects.nonNull(dogEntry) && Objects.nonNull(catEntry)) {
+                return dogEntry.count > catEntry.count ? dogEntry.pet : catEntry.pet;
+            }
+
+            if (Objects.nonNull(dogEntry)) {
+                return dogEntry.pet;
+            }
+
+            if (Objects.nonNull(catEntry)) {
+                return catEntry.pet;
+            }
+
+            return null;
+        }
+
+        static class PetEntry {
+            Pet pet;
+            int count;
+
+            PetEntry(Pet pet, int count) {
+                this.pet = pet;
+                this.count = count;
+            }
+        }
+
+        static class Pet {
+            private String type;
+
+            Pet(String type) {
+                this.type = type;
+            }
+
+            String getType() {
+                return type;
+            }
+        }
+
+        static class Dog extends Pet {
+            Dog() {
+                super("dog");
+            }
+        }
+
+        static class Cat extends Pet {
+            Cat() {
+                super("cat");
+            }
+        }
+    }
+
     /**
      * ﻿一个栈依次压入1、2、3、4、5, 那么从栈顶到栈底分别为5、4、3、2、1.
      * 将这个栈转置后，从栈顶到栈底为1、2、3、4、5，也就是实现栈中元素的逆序, 但是只能用递归函数来实现, 不能用其他数据结构
@@ -95,8 +288,8 @@ class PartOne {
      *
      * </pre>
      */
-    static class TwoStacksQueue<T> {
-        private Stack<T> stackPop, stackPush;
+    static class TwoStacksQueue<E> {
+        private Stack<E> stackPop, stackPush;
 
         TwoStacksQueue() {
             stackPop  = new Stack<>();
@@ -106,7 +299,7 @@ class PartOne {
         /**
          * @return 移除队列头部元素, 并返回
          */
-        T poll() {
+        E poll() {
             if (stackPop.isEmpty()) {
                 while (!stackPush.isEmpty()){
                     stackPop.push(stackPush.pop());
@@ -119,7 +312,7 @@ class PartOne {
         /**
          * @return 队列头部元素
          */
-        T peek() {
+        E peek() {
             if (stackPop.isEmpty()) {
                 while (!stackPush.isEmpty()){
                     stackPop.push(stackPush.pop());
@@ -135,7 +328,7 @@ class PartOne {
          * <p>需要先看 stackPop 中是否还有数据, 如果有的话, 需要看 pop 到 stackPush 中, 再添加该元素
          * @param num 添加的元素
          */
-        void add(T num) {
+        void add(E num) {
             while (!stackPop.isEmpty()){
                 stackPush.push(stackPop.pop());
             }
