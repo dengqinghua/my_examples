@@ -24,6 +24,22 @@ func TestSetImplement(t *testing.T) {
 		names := map[string]bool{}
 		abc := map[string]string{}
 
+		treesMap := make(map[int]*Tree)
+
+		trees := []Tree{
+			Tree{base: base{v: 1}},
+			Tree{base: base{v: 2}},
+			Tree{base: base{v: 3}},
+		}
+
+		for i, tree := range trees {
+			// treesMap[tree.v] = &tree 这种方式是不行的
+			treesMap[tree.v] = &trees[i]
+		}
+
+		So(len(treesMap), ShouldEqual, 3)
+		So(treesMap[2].v, ShouldEqual, 2)
+
 		Convey("it should get", func() {
 			value, ok := names["ds"]
 

@@ -21,6 +21,15 @@ func TestFunctions(t *testing.T) {
 			Convey("should get right value", func() {
 				So(Add(1, 2), ShouldEqual, 3)
 			})
+
+			// var wg sync.WaitGroup
+			// wg.Add(10)
+			// for i := 0; i < 10; i++ {
+			// 	go func() {
+			// 		defer wg.Done()
+			// 		fmt.Println(i)
+			// 	}()
+			// }
 		})
 
 		Convey("function addShortCut", func() {
