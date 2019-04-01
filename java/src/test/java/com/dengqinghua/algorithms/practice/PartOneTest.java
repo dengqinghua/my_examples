@@ -1,13 +1,40 @@
 package com.dengqinghua.algorithms.practice;
 
+import com.google.common.collect.Lists;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 
 public class PartOneTest {
+    @Test
+    public void testMovedWindow() throws Exception {
+        List<Integer> res, source;
+
+        source = Arrays.asList(4, 3);
+        res = PartOne.MovedWindow.move(source, 1);
+        assertThat(res, contains(4, 3));
+
+        source = Arrays.asList(4, 3, 2);
+        res = PartOne.MovedWindow.move(source, 2);
+        assertThat(res, contains(4, 3));
+
+        source = Arrays.asList(4, 3, 3);
+        res = PartOne.MovedWindow.move(source, 2);
+        assertThat(res, contains(4, 3));
+
+        source = Arrays.asList(4, 3, 5, 4, 3, 3);
+        res = PartOne.MovedWindow.move(source, 3);
+        assertThat(res, contains(5, 5, 5, 4));
+
+        source = Arrays.asList(4, 3, 5, 4, 3, 3, 6, 7);
+        res = PartOne.MovedWindow.move(source, 3);
+        assertThat(res, contains(5, 5, 5, 4, 6, 7));
+    }
+
     @Test public void testHanoiTower() throws Exception {
         assertThat(PartOne.HanoiTower.run(3), is(7));
     }

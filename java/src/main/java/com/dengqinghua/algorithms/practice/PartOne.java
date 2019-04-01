@@ -1,18 +1,120 @@
 package com.dengqinghua.algorithms.practice;
 
-import com.google.common.collect.Lists;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * 第一章 栈和队列
  */
 class PartOne {
+    /**
+     * 假如有一个 List
+     *
+     * <pre>
+     *     1 8 7 4 3 2 5
+     * </pre>
+     *
+     * 给一个 长度为 windowSize 的窗口大小, 假设为 3
+     *
+     * <p>
+     * 求窗口移动过程中每一个窗口的最大值组成的数组
+     * </p>
+     *
+     * 上面的List的结果求解步骤:
+     *
+     * <pre>
+     *
+     *     (1 8 7) 4 3 2 5      8
+     *     1 (8 7 4) 3 2 5      8
+     *     1 8 (7 4 3) 2 5      7
+     *     1 8 7 (4 3 2) 5      4
+     *     1 8 7 4 (3 2 5)      5
+     *
+     * 最终的结果为
+     *
+     * {8, 8, 7, 4, 5}
+     * </pre>
+     *
+     * 要求: 算法的时间复杂度为 O(N), 而不是 O(N * windowSize)
+     *
+     * <pre>
+     *
+     *  思路: 构造一个 DeQueue, 即: 双端队列.
+     *
+     *  队列里面存储 数组的下标, 将小的数的下标存储在队头.
+     *
+     *  如果待比较的坐标为j的数值, 大于队头i的值, 则将i弹出, j保存.
+     *
+     *  一旦比较到最后一个窗口时, 则从队尾中取未过期的下标 (未过期是指坐标在窗口内), 并将过期的删除
+     * </pre>
+     *
+     * 里面有一个思路很重要: <b>坐标小, 并且数值也小的值</b>, 应该及早抛弃掉, 大的数值放在队尾, 这样我们将原有的<b>比较结果存储起来</b>
+     */
+    static class MovedWindow {
+        /**
+         * run 返回窗口的最大值组成的 List
+         *
+         * <pre>
+         * 这个算法写了很久, 总结一下, 主要是下面几点
+         *
+         * 1. 没有一直地 remove
+         *
+         *    while (Objects.nonNull(queue.peekLast()) && source.get(queue.peekLast()) < source.get(i)) {
+         *       queue.removeLast();
+         *    }
+         *
+         * 2. 判断最大的index是否在窗口内部, 如果获取到数据之后, 需要 break
+         * 3. 边界问题, 是否需要选择 = , 是否需要加1 等等
+         * 4. 不要在 for 循环的时候, 使用变化的条件, 比如 queue.size() 方法的值是一直在变化的
+         * </pre>
+         *
+         * @param source 源数据
+         * @param windowSize 窗口大小
+         * @return 返回窗口最大值组成的数组
+         */
+        static List<Integer> move(List<Integer> source, int windowSize) {
+            if (source.size() < windowSize) {
+                throw new RuntimeException("source'size is too small");
+            }
+
+            List<Integer> res = new ArrayList<>(source.size()- windowSize + 1);
+            Deque<Integer> queue = new Deque<>();
+
+            for (int i = 0; i < source.size(); i++) {
+                // push 数据至 queue
+                if (queue.isEmpty()) {
+                    queue.addLast(i);
+                } else {
+                    // 删除 在队列里面 `坐标小, 而且数据也小的' 数据
+                    while (Objects.nonNull(queue.peekLast()) && source.get(queue.peekLast()) < source.get(i)) {
+                        queue.removeLast();
+                    }
+                    queue.addLast(i);
+                }
+
+                if (i >= windowSize - 1) {
+                    // 这里要事先取出来, 因为 queue.size() 是一直变化的
+                    int size = queue.size();
+                    for (int j = 0; j < size; j++) {
+                        // 由于 queue.removeFirst 有可能改变 queue, 所以需要在每个循环里面都取一下 queue.peekFirst()
+                        int maxIndex = queue.peekFirst();
+
+                        // 判断最大的index是否在窗口内部
+                        if (maxIndex <= i && maxIndex >= i - windowSize + 1) {
+                            res.add(maxIndex);
+                            break;
+                        } else {
+                            // 删除已经过期的数据
+                            queue.removeFirst();
+                        }
+                    }
+                }
+            }
+
+            return res.stream().map(source::get).collect(Collectors.toList());
+        }
+    }
+
     /**
      * <a href="https://en.wikipedia.org/wiki/Tower_of_Hanoi">汉诺塔</a>问题:
      *
