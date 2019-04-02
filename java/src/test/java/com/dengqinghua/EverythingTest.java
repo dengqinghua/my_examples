@@ -1,18 +1,15 @@
 package com.dengqinghua;
 
 import com.dengqinghua.concurrency.LockObject;
-import org.apache.commons.codec.binary.Base64;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.zip.CRC32;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -37,6 +34,11 @@ public class EverythingTest {
         // 所以我觉得, 如果 InnerClass 已经被设置为 private 了, 她里面的变量其实都可以不做任何申明
         assertThat(innerClass.i, is(1));
         assertThat(innerClassB.getI(), is(1));
+
+        ThreadLocal<Integer> local = new ThreadLocal<>();
+        local.set(1);
+
+        assertThat(local.get(), is(1));
     }
 
     /**

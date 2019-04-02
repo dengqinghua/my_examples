@@ -1,6 +1,5 @@
 package com.dengqinghua.algorithms.practice;
 
-import com.google.common.collect.Lists;
 import org.junit.Test;
 
 import java.util.Arrays;
