@@ -28,7 +28,7 @@ Golang
 
 ```shell
 git clone https://github.com/dengqinghua/my_examples.git  `go env GOPATH`/src/github.com/dengqinghua/
-cd `go env GOPATH`/src/github.com/dengqinghua/
+cd `go env GOPATH`/src/github.com/dengqinghua/golang
 go test ./...
 ```
 
