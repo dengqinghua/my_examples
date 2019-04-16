@@ -27,8 +27,8 @@ Golang
 请运行test
 
 ```shell
-git clone https://github.com/dengqinghua/my_examples.git  $GOPATH/src/github.com/dengqinghua/
-cd golang
+git clone https://github.com/dengqinghua/my_examples.git  `go env GOPATH`/src/github.com/dengqinghua/
+cd `go env GOPATH`/src/github.com/dengqinghua/golang
 go test ./...
 ```
 
