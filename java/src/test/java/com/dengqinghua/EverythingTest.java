@@ -4,10 +4,11 @@ import com.dengqinghua.concurrency.LockObject;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.zip.CRC32;
@@ -39,6 +40,41 @@ public class EverythingTest {
         local.set(1);
 
         assertThat(local.get(), is(1));
+    }
+
+    private List<String> getResourceFiles(String path) throws IOException {
+        InputStream stream = this.getClass().getClassLoader().getResourceAsStream(path);
+
+        if (Objects.isNull(stream)) {
+            throw new RuntimeException("文件目录不存在");
+        }
+
+        List<String> names = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+
+        String resource;
+        while ((resource = br.readLine()) != null) {
+            names.add(resource);
+        }
+
+        return names;
+    }
+
+    private InputStream getResourceAsStream(String resource) {
+        final InputStream in = getContextClassLoader().getResourceAsStream(resource);
+        return in == null ? getClass().getResourceAsStream(resource) : in;
+    }
+
+    private ClassLoader getContextClassLoader() {
+        return this.getClass().getClassLoader();
+    }
+
+    @Test public void testReadSources() throws Exception {
+        List<String> names = getResourceFiles("files");
+
+        System.out.println(names);
+        assertThat(names, hasSize(2));
+        assertThat(names, contains("1.txt", "2.txt"));
     }
 
     /**
