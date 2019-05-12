@@ -1,3 +1,5 @@
+# docekr build -t dengqinghua/nginx .
+# docker run -d -p 80 --name website -v $PWD/website:/var/www/html/website dengqinghua/nginx nginx
 FROM ubuntu_dengqinghua
 MAINTAINER dengqinghua "dengqinghua.42@gmail.com"
 RUN apt-get -yqq update; apt-get -yqq install nginx
