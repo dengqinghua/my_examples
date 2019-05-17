@@ -1,3 +1,5 @@
+# git clone https://github.com/turnbullpress/james_blog.git ~
+# docker run -v $HOME/james_blog:/data/ --name jekyll_blog dengqinghua/jekyll
 FROM ubuntu_dengqinghua
 MAINTAINER dengqinghua "dengqinghua.42@gmail.com"
 RUN apt-get -yqq update
