@@ -14,5 +14,5 @@ func main() {
 	// fmt.Println("dsgv587")
 	// fmt.Println(golang.Add(1, 2))
 
-	namespace.NewUTS()
+	namespace.New()
 }
