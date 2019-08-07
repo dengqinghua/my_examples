@@ -7,7 +7,7 @@ import (
 
 // go test github.com/dengqinghua/golang/docker/namespace -v -run TestNewUTS
 func TestNewUTS(t *testing.T) {
-	Convey("TestNewUTS", t, func() {
+	SkipConvey("TestNewUTS", t, func() {
 		So(func() { NewUTS() }, ShouldNotPanic)
 	})
 }
