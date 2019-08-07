@@ -40,6 +40,6 @@ func TestPool(t *testing.T) {
 
 		wg.Wait()
 
-		So(numsCreated, ShouldEqual, 8)
+		So(numsCreated, ShouldEqual, 4)
 	})
 }
