@@ -6,7 +6,5 @@ web:
     - "5000:5000"
   volumes:
     - .:/composeapp
-  links:
-    - redis
 redis:
   image: redis

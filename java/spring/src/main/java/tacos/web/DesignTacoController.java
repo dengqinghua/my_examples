@@ -1,6 +1,8 @@
 package tacos.web;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jooq.DSLContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,6 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/design")
 public class DesignTacoController {
-
     @GetMapping
     public String showDesignForm(Model model) {
         List<Ingredient> ingredients = Arrays.asList(
@@ -29,8 +30,7 @@ public class DesignTacoController {
                 new Ingredient("LETC", "Lettuce", Type.VEGGIES),
                 new Ingredient("CHED", "Cheddar", Type.CHEESE),
                 new Ingredient("JACK", "Monterrey Jack", Type.CHEESE),
-                new Ingredient("SLSA", "Salsa", Type.SAUCE),
-                new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
+                new Ingredient("SLSA", "Salsa", Type.SAUCE)
         );
 
         Ingredient.Type[] types = Ingredient.Type.values();
