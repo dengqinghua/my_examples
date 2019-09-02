@@ -7,8 +7,9 @@ export http_proxy=http://10.0.2.2:1080;export https_proxy=http://10.0.2.2:1080;
 sudo ln -s /usr/local/go/bin/go /usr/bin/go
 
 # 设置一些 alias
-
 alias gs="git status"
 alias gup="git remote update -p"
 alias gc="git checkout"
 export GOPATH=`go env GOPATH`
+
+sudo apt install tree

@@ -2,8 +2,10 @@ package concurrency
 
 import (
 	"fmt"
+	"github.com/dengqinghua/golang"
 	. "github.com/smartystreets/goconvey/convey"
 	"runtime"
+	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -209,6 +211,29 @@ func TestWierdCase(t *testing.T) {
 		for i := range streamOther2 {
 			So([]int{0, 1, 2, 3, 1024}, ShouldContain, i)
 		}
+	})
+}
+
+// go test -v github.com/dengqinghua/golang/concurrency -run TestTestOssRace
+func TestTestOssRace(t *testing.T) {
+	Convey("TestTestOssRace", t, func() {
+		num := 100
+
+		var wg sync.WaitGroup
+		wg.Add(num)
+
+		go func() {
+			for i := 0; i < num; i++ {
+				wg.Done()
+
+				s := golang.GetOssSts()
+
+				if !strings.Contains(s, "200") {
+					fmt.Println(s)
+				}
+			}
+		}()
+		wg.Wait()
 	})
 }
 
