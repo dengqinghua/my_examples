@@ -24,7 +24,7 @@ func main() {
 	app.Usage = usage
 
 	app.Commands = []cli.Command{
-		// initCommand,
+		initCommand,
 		runCommand,
 	}
 
