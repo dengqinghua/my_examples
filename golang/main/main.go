@@ -24,7 +24,7 @@ func main() {
 	app.Usage = usage
 
 	app.Commands = []cli.Command{
-		// initCommand,
+		initCommand,
 		runCommand,
 	}
 
@@ -47,15 +47,15 @@ var initCommand = cli.Command{
 		command := context.Args().Get(0)
 		log.Infof("command %s", command)
 
-		//err := container.RunControllerInitProcess(command, nil)
-		return nil
+		err := container.RunControllerInitProcess(command, nil)
+		return err
 	},
 }
 
 var runCommand = cli.Command{
 	Name: "run",
 	Usage: `Create a container with namespace and cgroups limit
-	mysql run -it [command]`,
+	mydocker run -it [command]`,
 	Flags: []cli.Flag{
 		cli.BoolFlag{
 			Name:  "ti",
