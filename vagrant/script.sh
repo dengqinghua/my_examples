@@ -1,4 +1,6 @@
 export http_proxy=http://10.0.2.2:1080;export https_proxy=http://10.0.2.2:1080;
+export PATH=$PATH:/usr/local/go/bin
+alias docker="sudo docker"
 
 # 安装docker, 参考 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
 # 下载 golang
