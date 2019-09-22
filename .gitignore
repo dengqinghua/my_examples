@@ -2,3 +2,5 @@
 .idea
 target/
 dump.rdb
+.vagrant
+*.log
