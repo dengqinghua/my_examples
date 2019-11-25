@@ -9,6 +9,14 @@ func getBaiduContent(q string) (*http.Response, error) {
 	return http.Get("http://baidu.com/" + q)
 }
 
+func GetOssSts() string {
+	res, _ := http.Get("http://docker.xiguacity.cn:3042/api/mobile/common/access/aliyun_oss_token")
+
+	body, _ := ioutil.ReadAll(res.Body)
+
+	return string(body)
+}
+
 func httpPostRequest(uri string) string {
 	client := &http.Client{}
 
