@@ -13,10 +13,10 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class AVLTreeTest {
-    List<Integer> dataList;
-    Integer[] datas;
-    AVLTree tree;
-    static Method methodHeight;
+    private List<Integer> dataList;
+    private Integer[] datas;
+    private AVLTree tree;
+    private static Method methodHeight;
 
     @BeforeClass public static void setMethodAccessible() throws Exception {
         methodHeight = AVLTree.class.getDeclaredMethod("height", AVLTree.AVLNode.class);
@@ -25,7 +25,7 @@ public class AVLTreeTest {
 
     @Test public void heightTest_1() throws Exception {
         dataList = Arrays.asList(3, 2);
-        datas = dataList.toArray(new Integer[dataList.size()]);
+        datas = dataList.toArray(new Integer[0]);
 
         tree = AVLTree.build(datas);
 
@@ -33,18 +33,18 @@ public class AVLTreeTest {
         assertThat(methodHeight.invoke(AVLTree.AVLNode.class, tree.getRoot()), is(1));
     }
 
-    @Test public void heightTest_0() throws Exception {
+    @Test public void heightTest_0() {
         dataList = Collections.singletonList(2);
-        datas = dataList.toArray(new Integer[dataList.size()]);
+        datas = dataList.toArray(new Integer[0]);
 
         tree = AVLTree.build(datas);
 
         assertThat(tree.preOrderTraversal(), is(contains(2)));
     }
 
-    @Test public void heightTest_3() throws Exception {
+    @Test public void heightTest_3() {
         dataList = Arrays.asList(3, 2);
-        datas = dataList.toArray(new Integer[dataList.size()]);
+        datas = dataList.toArray(new Integer[0]);
 
         tree = AVLTree.build(datas);
         assertThat(tree.preOrderTraversal(), is(contains(3, 2)));
@@ -56,9 +56,9 @@ public class AVLTreeTest {
      *  1
      *
      */
-    @Test public void balance_three() throws Exception {
+    @Test public void balance_three() {
         dataList = Arrays.asList(3, 2, 1);
-        datas = dataList.toArray(new Integer[dataList.size()]);
+        datas = dataList.toArray(new Integer[0]);
 
         tree = AVLTree.build(datas);
         assertThat(tree.preOrderTraversal(), is(contains(2, 1, 3)));
@@ -72,9 +72,9 @@ public class AVLTreeTest {
      *  1
      *
      */
-    @Test public void balance_case1() throws Exception {
+    @Test public void balance_case1() {
         dataList = Arrays.asList(20, 10, 30, 5, 15, 1);
-        datas = dataList.toArray(new Integer[dataList.size()]);
+        datas = dataList.toArray(new Integer[0]);
 
         tree = AVLTree.build(datas, false);
         assertThat(tree.postOrderTraversal(), is(contains(1, 5, 15, 10, 30, 20)));
@@ -91,9 +91,9 @@ public class AVLTreeTest {
      *          40
      *
      */
-    @Test public void balance_case2_1() throws Exception {
+    @Test public void balance_case2_1() {
         dataList = Arrays.asList(20, 30, 40);
-        datas = dataList.toArray(new Integer[dataList.size()]);
+        datas = dataList.toArray(new Integer[0]);
 
         tree = AVLTree.build(datas, false);
         assertThat(tree.postOrderTraversal(), is(contains(40, 30, 20)));
@@ -111,9 +111,9 @@ public class AVLTreeTest {
      *                       50
      *
      */
-    @Test public void balance_case2() throws Exception {
+    @Test public void balance_case2() {
         dataList = Arrays.asList(20, 10, 30, 25, 40, 50);
-        datas = dataList.toArray(new Integer[dataList.size()]);
+        datas = dataList.toArray(new Integer[0]);
 
         tree = AVLTree.build(datas, false);
         assertThat(tree.postOrderTraversal(), is(contains(10, 25, 50, 40, 30, 20)));
@@ -131,9 +131,9 @@ public class AVLTreeTest {
      *          18
      *
      */
-    @Test public void balance_case3() throws Exception {
+    @Test public void balance_case3() {
         dataList = Arrays.asList(20, 10, 30, 8, 15, 18);
-        datas = dataList.toArray(new Integer[dataList.size()]);
+        datas = dataList.toArray(new Integer[0]);
 
         tree = AVLTree.build(datas, false);
         assertThat(tree.postOrderTraversal(), is(contains(8, 18, 15, 10, 30, 20)));
@@ -151,9 +151,9 @@ public class AVLTreeTest {
      *             21
      *
      */
-    @Test public void balance_case4() throws Exception {
+    @Test public void balance_case4() {
         dataList = Arrays.asList(20, 10, 30, 25, 50, 21);
-        datas = dataList.toArray(new Integer[dataList.size()]);
+        datas = dataList.toArray(new Integer[0]);
 
         tree = AVLTree.build(datas, false);
         assertThat(tree.postOrderTraversal(), is(contains(10, 21, 25, 50, 30, 20)));
@@ -168,9 +168,9 @@ public class AVLTreeTest {
      *        3  5     8   10
      *
      */
-    @Test public void insert_Complicated_Case() throws Exception {
+    @Test public void insert_Complicated_Case() {
         dataList = Arrays.asList(6, 4, 9, 3, 8, 5, 10);
-        datas = dataList.toArray(new Integer[dataList.size()]);
+        datas = dataList.toArray(new Integer[0]);
 
         tree = AVLTree.build(datas);
 

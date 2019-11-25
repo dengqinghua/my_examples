@@ -9,7 +9,7 @@
     <url>http://maven.apache.org</url>
     <properties>
         <junit.version>4.12</junit.version>
-        <surefire.plugin.version>2.20.1</surefire.plugin.version>
+        <surefire.plugin.version>2.21.0</surefire.plugin.version>
         <java.version>1.8</java.version>
         <compiler.plugin.version>3.5.1</compiler.plugin.version>
         <hamcrest.version>1.3</hamcrest.version>

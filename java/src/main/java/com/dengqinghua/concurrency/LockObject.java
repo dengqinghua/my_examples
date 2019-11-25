@@ -12,7 +12,7 @@ public class LockObject {
         }
     }
 
-    public synchronized void lockMethod() {
+    synchronized void lockMethod() {
         System.out.println("dsgv587");
     }
 }

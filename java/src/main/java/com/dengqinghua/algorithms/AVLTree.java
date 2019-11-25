@@ -28,10 +28,6 @@ public class AVLTree {
             this.left = left;
             this.right = right;
         }
-
-        public int getHeight() {
-            return height;
-        }
     }
 
     public AVLNode getRoot() {
@@ -147,7 +143,7 @@ public class AVLTree {
      * @param node 输入的节点
      * @return 输出的节点
      */
-    public AVLNode balance(AVLNode node) {
+    private AVLNode balance(AVLNode node) {
         if (Math.abs(height(node.left) - height(node.right)) > ALLOW_IMBALANCE) {
             if (height(node.left) > height(node.right)) {
                 // case 1
